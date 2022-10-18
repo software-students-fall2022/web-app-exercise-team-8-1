@@ -1,21 +1,47 @@
-from flask import Flask, render_template, request, session, redirect, url_for, make_response
-from dotenv import dotenv_values
 import pymongo
-import datetime
-from bson.objectid import ObjectId
+from pymongo import MongoClient
+from flask import Flask, render_template, request, redirect, abort, url_for, make_response
+# following set up from readme: https://github.com/nyu-software-engineering/flask-pymongo-web-app-example
 
-app = Flask(__name__)
+app=Flask(__name__)
 
-config = dotenv_values(".env")
+# "localhost5000/" in browser
+cluster = MongoClient("mongodb+srv://team8:clothesclothesclothes@cluster0.5fub1c4.mongodb.net/?retryWrites=true&w=majority")
+db = cluster["clothes-app"]
 
-
-if config['FLASK_ENV'] == 'development':
-    app.debug = True 
-
-cxn = pymongo.MongoClient(config['MONGO_URI'], serverSelectionTimeoutMS=5000)
-db = cxn["database"]
-
+# collection for clothing 
+clothes = db["all-clothes"]
+# collection for users
 users = db["users"]
+
+
+shirt1 = {
+    "image" : "https://images.asos-media.com/products/adidas-originals-oversized-shirt-in-bliss-purple/202997913-1-purple?$n_640w$&wid=634&fit=constrain",
+    "item-name" : "Oversized Shirt",
+    "type" : "shirt",
+    "price" : "60.00",
+    "brand" : "adidas",
+    "sizes-available" : ["m", "l"]
+}
+
+pants1 = {
+    "image" : "https://images.asos-media.com/products/yas-flared-pants-with-chunky-belt-loops-in-black/203019328-1-black?$n_640w$&wid=634&fit=constrain",
+    "item-name" : "Flared Pants",
+    "price" : "79.00",
+    "color": "black",
+    "brand" : "YAS",
+    "sizes-available" : ["s", "l", "xl"]
+}
+
+# already added to db!! 
+#clothes.insert_many([shirt1, pants1])
+
+@app.route("/list.html") 
+def shop():
+    #print(pymongo.version)
+    #no filter requested, no GET or POST
+    clothing = clothes.find()
+    return render_template('list.html', clothes=clothing)
 
 @app. route("/signup", methods=["POST", "GET"])
 def signup():
@@ -57,8 +83,6 @@ def login():
 
     else:
         return render_template("login.html", message="")
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)
