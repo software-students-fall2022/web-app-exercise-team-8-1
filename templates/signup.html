@@ -14,12 +14,20 @@
         <h2 class = "web-title">
             Sign-up
         </h2>
-        <input class = "input-bar" type = "text" placeholder = "Username">
-        <input class = "input-bar" type = "text" placeholder = "Password">
-        <input class = "input-bar" type = "text" placeholder = "Repeat Password">
-        <a href="list.html"><button class = "login-sign-button">
-            SIGN-UP
-        </button></a>
 
+        <form method = "POST" action = "\placeholder">
+            <label for="email"><b>Email</b></label>
+            <input class = "input-bar" type = "text" placeholder = "Email" name = "email">
+
+            <label for="username"><b>Username</b></label>
+            <input class = "input-bar" type = "text" placeholder = "Username" name = "username">
+
+            <label for="password"><b>Password</b></label>
+            <input class = "input-bar" type = "text" placeholder = "Password" name = "password">
+
+            <button class = "login-sign-button" type = "submit">
+                SIGN-UP
+            </button>
+        </form>
     </body>
 </html>

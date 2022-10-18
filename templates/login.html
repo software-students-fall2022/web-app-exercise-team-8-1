@@ -14,11 +14,19 @@
         <h2 class = "web-title">
             APPNAME
         </h2>
-        <input class = "input-bar" type = "text" placeholder = "Username">
-        <input class = "input-bar" type = "text" placeholder = "Password">
-        <a href="list.html"><button class = "login-sign-button">
-            LOGIN
-        </button></a>
+
+        <form method = "POST" action = "\placeholder">
+            <label for="email"><b>Email</b></label>
+            <input class = "input-bar" type = "text" placeholder = "Email" name = "email">
+
+            <label for="password"><b>Password</b></label>
+            <input class = "input-bar" type = "text" placeholder = "Password" name = "password">
+
+            <button class = "login-sign-button" type = "submit">
+                LOGIN
+            </button>
+        </form>
+
         <a href="signup.html"><p class = "sign-up"><u>
             Sign-up
         </u></p></a>
