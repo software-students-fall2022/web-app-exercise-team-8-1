@@ -1,19 +1,24 @@
 import pymongo
-from pymongo import MongoClient
-from flask import Flask, render_template, request, redirect, abort, url_for, make_response
-# following set up from readme: https://github.com/nyu-software-engineering/flask-pymongo-web-app-example
+from flask import Flask, render_template, request, session, redirect, url_for, make_response
+from dotenv import dotenv_values
+import pymongo
+import datetime
+from bson.objectid import ObjectId
 
-app=Flask(__name__)
+app = Flask(__name__)
 
-# "localhost5000/" in browser
-cluster = MongoClient("mongodb+srv://team8:clothesclothesclothes@cluster0.5fub1c4.mongodb.net/?retryWrites=true&w=majority")
-db = cluster["clothes-app"]
+config = dotenv_values(".env")
 
-# collection for clothing 
-clothes = db["all-clothes"]
-# collection for users
+
+if config['FLASK_ENV'] == 'development':
+    app.debug = True 
+
+cxn = pymongo.MongoClient(config['MONGO_URI'], serverSelectionTimeoutMS=5000)
+db = cxn["database"]
+
 users = db["users"]
 
+clothes = db["clothes"]
 
 shirt1 = {
     "image" : "https://images.asos-media.com/products/adidas-originals-oversized-shirt-in-bliss-purple/202997913-1-purple?$n_640w$&wid=634&fit=constrain",
@@ -33,9 +38,10 @@ pants1 = {
     "sizes-available" : ["s", "l", "xl"]
 }
 
-# already added to db!! 
-#clothes.insert_many([shirt1, pants1])
+# clothes not yet added 
+# clothes.insert_many([shirt1, pants1])
 
+# can't test, having errors with connecting to database the correct way -Eduarda
 @app.route("/list.html") 
 def shop():
     #print(pymongo.version)
