@@ -1,38 +1,56 @@
 <html>
-    <head>
-        <title>
-            mainpage
-        Shop
-        </title>
-        <link rel = "stylesheet", href = "css/basic.css">
-    </head>
-            View item
-        </h2>
-        <input class = "input-bar" type = "text" placeholder = "Search for item">
-        {% comment %} <select>
-            <option value = "All">All</option>
-            <option value = "Clothing">Clothing</option>
-            <option value = "Brands">Electronics</option>
-            <option value = "Food">Food</option>
-            <option value = "Furniture">Furniture</option>
-            <option value = "Toys">Toys</option>
-            <option value = "Other">Other</option>
-        </select> {% endcomment %}
-        {%for clothing in clothes%}
-        <div>
-            <div class = "product">
-                <img src= "{{clothing['image']}}" height = 400px > 
-               <p> {{clothing['item-name']}} </p>
-               <p> from {{clothing['brand']}}</p>
-               <p> ${{clothing['price']}}</p>
-               <p> Available sizes: {{clothing['sizes-available']}}</p>
-               <a href="cart.html"><button class = "addToCart">
-                Add to cart
-            </button></a>
 
+<head>
+    <title>
+        mainpage Shop
+    </title>
+    <link rel="stylesheet" , href="css/basic.css">
+    <link rel="stylesheet" , href="css/style.css">
+</head>
+
+<body>
+    <header>
+        <h1>
+            mainpage Shop
+        </h1>
+        add tags here for different pages
+    </header>
+    <main>
+        <section class="search_filter">
+            View item
+            </h2>
+            <input class="input-bar" type="text" placeholder="Search for item">
+            <!-- <select>
+                <option value = "All">All</option>
+                <option value = "Clothing">Clothing</option>
+                <option value = "Brands">Electronics</option>
+                <option value = "Food">Food</option>
+                <option value = "Furniture">Furniture</option>
+                <option value = "Toys">Toys</option>
+                <option value = "Other">Other</option>
+            </select> -->
+        </section>
+        <section class="display_items">
+            {%for clothing in clothes%}
+            <div>
+                <div class="product">
+                    <img src="{{clothing['image']}}" height=4 00px>
+                    <p> {{clothing['item-name']}} </p>
+                    <p> from {{clothing['brand']}}</p>
+                    <p> ${{clothing['price']}}</p>
+                    <p> Available sizes: {{clothing['sizes-available']}}</p>
+                    <a href="cart.html"><button class = "addToCart">
+                    Add to cart
+                </button></a>
+
+                </div>
             </div>
+            {% endfor %}
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="footer_div">
+            <p>© 2020 mainpage Shop</p>
         </div>
-        {% endfor %}
-        <a href="cart.html"><button class = "checkout">
-            Checkout
-        </button></a>
+    </footer>
+</body>
