@@ -12,7 +12,7 @@ db = cluster["clothes-app"]
 # collection for clothing 
 clothing_collection = db["all-clothes"]
 # collection for users
-user_collection = db["users"]
+users = db["users"]
 
 
 clothes = db["clothes"]
@@ -41,7 +41,7 @@ user0 = {
      'password': 'test123'    
 }
 
-# users.insert_one(user0)
+users.insert_one(user0)
 
 # clothes added
 # clothes.insert_many([shirt1, pants1])
@@ -61,13 +61,13 @@ def signup():
         user_name = request.form["username"]
         user_password = request.form["password"]
 
-        if user_collection.count_documents({'email': user_email}) == 0:
+        if users.count_documents({'email': user_email}) == 0:
             new_user = {
                 'email': user_email,
                 'username': user_name,
                 'password': user_password
             }
-            user_collection.insert_one(new_user)
+            users.insert_one(new_user)
 
             return redirect(url_for("list"))
         else:
@@ -82,7 +82,7 @@ def login():
         user_email = request.form["email"]
         user_password = request.form["password"]
         # check credentials
-        x = user_collection.find_one({'email': user_email})
+        x = users.find_one({'email': user_email})
         if x is not None:
             if x['password'] == user_password:
 
