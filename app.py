@@ -5,7 +5,7 @@ from flask import Flask, render_template, request, redirect, abort, url_for, mak
 app=Flask(__name__)
 
 # PASTE CLUSTER FROM DISC HERE - it should work !!!!
-# cluster = MongoClient("mongodb+srv://team8:clothesclothesclothes@cluster0.5fub1c4.mongodb.net/?retryWrites=true&w=majority")
+
 
 db = cluster["clothes-app"]
 
