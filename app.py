@@ -54,7 +54,7 @@ def shop():
     clothing = clothes.find()
     return render_template('list.html', clothes=clothing)
 
-@app. route("/signup", methods=["POST", "GET"])
+@app. route("/signup.html", methods=["POST", "GET"])
 def signup():
     if request.method == "POST":
         user_email = request.form["email"]
