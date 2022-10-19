@@ -14,7 +14,6 @@ clothing_collection = db["all-clothes"]
 # collection for users
 user_collection = db["users"]
 
-users = db["users"]
 
 clothes = db["clothes"]
 
@@ -54,32 +53,32 @@ def signup():
         user_name = request.form["username"]
         user_password = request.form["password"]
 
-        if users.countDocuments({'email': user_email}) == 0:
+        if user_collection.count_documents({'email': user_email}) == 0:
             new_user = {
                 'email': user_email,
                 'username': user_name,
                 'password': user_password
             }
-            users.insert_one(new_user)
+            user_collection.insert_one(new_user)
 
-            return redirect(url_for("home"))
+            return redirect(url_for("list"))
         else:
             render_template("login.html", message="User account already exists")
     else:
         return render_template("signup.html")
 
 
-@app.route("/login", methods=["POST", "GET"])
+@app.route("/login.html", methods=["POST", "GET"])
 def login():
     if request.method == "POST":
         user_email = request.form["email"]
         user_password = request.form["password"]
         # check credentials
-        x = users.findOne({'email': user_email})
+        x = user_collection.find_one({'email': user_email})
         if x is not None:
             if x['password'] == user_password:
 
-                return redirect(url_for("home"))
+                return redirect(url_for("list"))
             else:
                 return render_template("login.html", message="Wrong Password")
         else:
@@ -104,6 +103,11 @@ def handle_sort():
        
 
     return render_template("list.html", clothes=sortedClothing)
+
+
+@app.route("/logout")
+def logout():
+    return render_template('login.html')
     
 
 if __name__ == '__main__':
