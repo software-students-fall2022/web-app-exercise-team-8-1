@@ -4,8 +4,7 @@ from flask import Flask, render_template, request, redirect, abort, url_for, mak
 # following set up from readme: https://github.com/nyu-software-engineering/flask-pymongo-web-app-example
 app=Flask(__name__)
 
-# cluster = MongoClient("mongodb+srv://team8:clothesclothesclothes@cluster0.5fub1c4.mongodb.net/?retryWrites=true&w=majority")
-
+# PASTE CLUSTER FROM DISC HERE - it should work !!!!
 db = cluster["clothes-app"]
 
 # collection for clothing 
@@ -68,7 +67,7 @@ def signup():
         return render_template("signup.html")
 
 
-@app. route("/login", methods=["POST", "GET"])
+@app.route("/login", methods=["POST", "GET"])
 def login():
     if request.method == "POST":
         user_email = request.form["email"]
@@ -86,6 +85,24 @@ def login():
 
     else:
         return render_template("login.html", message="")
+
+@app.route("/list.html", methods=['POST'])
+def handle_sort():
+    sortBy = request.form['sortList']
+
+    if (sortBy == 'default'): 
+        sortedClothing =  db.clothes.find()
+    elif (sortBy == 'name'):
+        sortedClothing = db.clothes.find().sort('item-name',1)
+    elif (sortBy == 'price'):
+        sortedClothing = db.clothes.find().sort('price',1)
+    elif (sortBy == 'brand'):
+        sortedClothing = db.clothes.find().sort('brand',-1)
+        
+       
+
+    return render_template("list.html", clothes=sortedClothing)
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
