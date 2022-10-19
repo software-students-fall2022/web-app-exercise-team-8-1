@@ -8,7 +8,21 @@
     </head>
             View item
         </h2>
-        <input class = "input-bar" type = "text" placeholder = "Search for item">
+
+
+
+        <form action = "/list.html" method = "POST">
+            <label for="toSort">Sort By</label>
+            <select id = "sortBy" name = "sortList" >
+                <option value="default">  </option>
+                <option value="name">Item Name (A-Z) </option>
+                 <option value="price">Price (Lowest-Highest) </option>
+                <option value="brand">Brand (A-Z) </option>
+
+                <input type="submit" value="Display">
+            </form> 
+        </form>
+
         {%for clothing in clothes%}
         <div>
             <div class = "product">
