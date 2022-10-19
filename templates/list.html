@@ -1,10 +1,10 @@
 <html>
     <head>
+        <link rel = "stylesheet" type ="text/css" href = "../static/css/basic.css"/>
         <title>
             mainpage
         Shop
         </title>
-        <link rel = "stylesheet", href = "css/basic.css">
     </head>
             View item
         </h2>
@@ -24,7 +24,7 @@
         </form>
 
         <input class = "input-bar" type = "text" placeholder = "Search for item">
-        {% comment %} <select>
+         <select>
             <option value = "All">All</option>
             <option value = "Clothing">Clothing</option>
             <option value = "Brands">Electronics</option>
@@ -32,7 +32,7 @@
             <option value = "Furniture">Furniture</option>
             <option value = "Toys">Toys</option>
             <option value = "Other">Other</option>
-        </select> {% endcomment %}
+        </select> 
 
         {%for clothing in clothes%}
         <div>
@@ -52,3 +52,5 @@
         <a href="cart.html"><button class = "checkout">
             Checkout
         </button></a>
+
+        </html>
