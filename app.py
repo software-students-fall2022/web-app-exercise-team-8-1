@@ -36,6 +36,14 @@ pants1 = {
     "sizes-available" : ["s", "l", "xl"]
 }
 
+user0 = {
+     'email': 'test@email.com',
+    'username': 'test',
+     'password': 'test123'    
+}
+
+users.insert_one(user0)
+
 # clothes added
 # clothes.insert_many([shirt1, pants1])
 
