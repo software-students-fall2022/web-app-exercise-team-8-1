@@ -13,7 +13,7 @@ db = cluster["clothes-app"]
 # collection for clothing 
 clothing_collection = db["all-clothes"]
 # collection for users
-users = db["users"]
+user_collection = db["users"]
 
 
 clothes = db["clothes"]
@@ -55,21 +55,20 @@ def shop():
     clothing = clothes.find()
     return render_template('list.html', clothes=clothing)
 
-
-@app. route("/signup.html", methods=["POST", "GET"])
+@app. route("/signup", methods=["POST", "GET"])
 def signup():
     if request.method == "POST":
         user_email = request.form["email"]
         user_name = request.form["username"]
         user_password = request.form["password"]
 
-        if users.count_documents({'email': user_email}) == 0:
+        if user_collection.count_documents({'email': user_email}) == 0:
             new_user = {
                 'email': user_email,
                 'username': user_name,
                 'password': user_password
             }
-            users.insert_one(new_user)
+            user_collection.insert_one(new_user)
 
             return redirect(url_for("handle_sort"))
         else:
@@ -85,7 +84,7 @@ def login():
         user_email = request.form["email"]
         user_password = request.form["password"]
         # check credentials
-        x = users.find_one({'email': user_email})
+        x = user_collection.find_one({'email': user_email})
         if x is not None:
             if x['password'] == user_password:
                 return redirect(url_for("handle_sort"))

@@ -15,15 +15,24 @@
         add tags here for different pages
     </header>
     <main>
-        <section class="search_filter">
-            View item
-        </h2>
+        <section class="filters">
+            <li>
+                <ul><a href="#">Brand</a></ul>
+                <!--action_expand-->
+                <ul><a href="#">Price</a></ul>
+                <!--action_expand-->
+                <ul><a href="#">Color</a></ul>
+                <!--action_expand-->
+                <ul><a href="#">style</a></ul>
+                <!--action_expand-->
+            </li>
+        </section>
+        <section class="search">
+            <h2>View item</h2>
 
-
-
-        <form action = "/list.html" method = "POST">
-            <label for="toSort">Sort By</label>
-            <select id = "sortBy" name = "sortList" >
+            <form action="/list.html" method="POST">
+                <label for="toSort">Sort By</label>
+                <select id="sortBy" name="sortList">
                 <option value="default">  </option>
                 <option value="name">Item Name (A-Z) </option>
                  <option value="price">Price (Lowest-Highest) </option>
@@ -31,7 +40,7 @@
 
                 <input type="submit" value="Display">
             </form> 
-        </form>
+        
 
         <input class = "input-bar" type = "text" placeholder = "Search for item">
          <select>
@@ -42,23 +51,23 @@
             <option value = "Furniture">Furniture</option>
             <option value = "Toys">Toys</option>
             <option value = "Other">Other</option>
-        </select> 
+        </select> {%for clothing in clothes%}
+                <div>
+                    <div class="product">
+                        <img src="{{clothing['image']}}" height=4 00px>
+                        <p> {{clothing['item-name']}} </p>
+                        <p> from {{clothing['brand']}}</p>
+                        <p> ${{clothing['price']}}</p>
+                        <p> Available sizes: {{clothing['sizes-available']}}</p>
+                        <a href="cart.html">
+                            <button class="addToCart">
+                    Add to cart
+                    </button>
+                        </a>
 
-        {%for clothing in clothes%}
-        <div>
-            <div class = "product">
-                <img src= "{{clothing['image']}}" height = 400px > 
-               <p> {{clothing['item-name']}} </p>
-               <p> from {{clothing['brand']}}</p>
-               <p> ${{clothing['price']}}</p>
-               <p> Available sizes: {{clothing['sizes-available']}}</p>
-               <a href="cart.html"><button class = "addToCart">
-                Add to cart
-            </button></a>
-
+                    </div>
                 </div>
-            </div>
-            {% endfor %}
+                {% endfor %}
         </section>
     </main>
     <footer class="footer">
@@ -67,4 +76,5 @@
         </div>
     </footer>
 </body>
-        </html>
+
+</html>
