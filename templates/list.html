@@ -1,11 +1,22 @@
 <html>
-    <head>
-        <link rel = "stylesheet" type ="text/css" href = "../static/css/basic.css"/>
-        <title>
-            mainpage
-        Shop
-        </title>
-    </head>
+
+<head>
+    <title>
+        mainpage Shop
+    </title>
+    <link rel="stylesheet" , href="css/basic.css">
+    <link rel="stylesheet" , href="css/style.css">
+</head>
+
+<body>
+    <header>
+        <h1>
+            mainpage Shop
+        </h1>
+        add tags here for different pages
+    </header>
+    <main>
+        <section class="search_filter">
             View item
         </h2>
 
@@ -46,11 +57,15 @@
                 Add to cart
             </button></a>
 
+                </div>
             </div>
+            {% endfor %}
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="footer_div">
+            <p>© 2020 mainpage Shop</p>
         </div>
-        {% endfor %}
-        <a href="cart.html"><button class = "checkout">
-            Checkout
-        </button></a>
-
+    </footer>
+</body>
         </html>
