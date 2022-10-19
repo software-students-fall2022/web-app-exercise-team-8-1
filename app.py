@@ -55,6 +55,7 @@ def shop():
     clothing = clothes.find()
     return render_template('list.html', clothes=clothing)
 
+
 @app. route("/signup.html", methods=["POST", "GET"])
 def signup():
     if request.method == "POST":
@@ -77,6 +78,7 @@ def signup():
         return render_template("signup.html")
 
 
+@app.route("/")
 @app.route("/login.html", methods=["POST", "GET"])
 def login():
     if request.method == "POST":
