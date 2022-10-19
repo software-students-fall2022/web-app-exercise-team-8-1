@@ -41,7 +41,7 @@ user0 = {
      'password': 'test123'    
 }
 
-users.insert_one(user0)
+# users.insert_one(user0)
 
 # clothes added
 # clothes.insert_many([shirt1, pants1])
