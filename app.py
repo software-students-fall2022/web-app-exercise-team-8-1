@@ -1,20 +1,16 @@
 import pymongo
-from flask import Flask, render_template, request, session, redirect, url_for, make_response
-from dotenv import dotenv_values
-import pymongo
-import datetime
-from bson.objectid import ObjectId
+from pymongo import MongoClient
+from flask import Flask, render_template, request, redirect, abort, url_for, make_response
+# following set up from readme: https://github.com/nyu-software-engineering/flask-pymongo-web-app-example
+app=Flask(__name__)
 
-app = Flask(__name__)
+# PASTE CLUSTER FROM DISC HERE - it should work !!!!
+db = cluster["clothes-app"]
 
-config = dotenv_values(".env")
-
-
-if config['FLASK_ENV'] == 'development':
-    app.debug = True 
-
-cxn = pymongo.MongoClient(config['MONGO_URI'], serverSelectionTimeoutMS=5000)
-db = cxn["database"]
+# collection for clothing 
+clothing_collection = db["all-clothes"]
+# collection for users
+user_collection = db["users"]
 
 users = db["users"]
 
@@ -38,7 +34,7 @@ pants1 = {
     "sizes-available" : ["s", "l", "xl"]
 }
 
-# clothes not yet added 
+# clothes added
 # clothes.insert_many([shirt1, pants1])
 
 # can't test, having errors with connecting to database the correct way -Eduarda
