@@ -18,30 +18,44 @@
     <main>
         <section class="search_filter">
             View item
-            </h2>
-            <input class="input-bar" type="text" placeholder="Search for item">
-            <!-- <select>
-                <option value = "All">All</option>
-                <option value = "Clothing">Clothing</option>
-                <option value = "Brands">Electronics</option>
-                <option value = "Food">Food</option>
-                <option value = "Furniture">Furniture</option>
-                <option value = "Toys">Toys</option>
-                <option value = "Other">Other</option>
-            </select> -->
-        </section>
-        <section class="display_items">
-            {%for clothing in clothes%}
-            <div>
-                <div class="product">
-                    <img src="{{clothing['image']}}" height=4 00px>
-                    <p> {{clothing['item-name']}} </p>
-                    <p> from {{clothing['brand']}}</p>
-                    <p> ${{clothing['price']}}</p>
-                    <p> Available sizes: {{clothing['sizes-available']}}</p>
-                    <a href="cart.html"><button class = "addToCart">
-                    Add to cart
-                </button></a>
+        </h2>
+
+
+
+        <form action = "/list.html" method = "POST">
+            <label for="toSort">Sort By</label>
+            <select id = "sortBy" name = "sortList" >
+                <option value="default">  </option>
+                <option value="name">Item Name (A-Z) </option>
+                 <option value="price">Price (Lowest-Highest) </option>
+                <option value="brand">Brand (A-Z) </option>
+
+                <input type="submit" value="Display">
+            </form> 
+        </form>
+
+        <input class = "input-bar" type = "text" placeholder = "Search for item">
+         <select>
+            <option value = "All">All</option>
+            <option value = "Clothing">Clothing</option>
+            <option value = "Brands">Electronics</option>
+            <option value = "Food">Food</option>
+            <option value = "Furniture">Furniture</option>
+            <option value = "Toys">Toys</option>
+            <option value = "Other">Other</option>
+        </select> 
+
+        {%for clothing in clothes%}
+        <div>
+            <div class = "product">
+                <img src= "{{clothing['image']}}" height = 400px > 
+               <p> {{clothing['item-name']}} </p>
+               <p> from {{clothing['brand']}}</p>
+               <p> ${{clothing['price']}}</p>
+               <p> Available sizes: {{clothing['sizes-available']}}</p>
+               <a href="cart.html"><button class = "addToCart">
+                Add to cart
+            </button></a>
 
                 </div>
             </div>
@@ -54,3 +68,4 @@
         </div>
     </footer>
 </body>
+        </html>
