@@ -1,5 +1,9 @@
 
+<<<<<<< HEAD
 from email import message
+=======
+from pydoc import doc
+>>>>>>> 3cf7cac768d937655657ffc271da2c0d077586c7
 import pymongo
 from pymongo import MongoClient
 from bson.objectid import ObjectId
@@ -161,8 +165,15 @@ def handle_query():
             sortedClothing = db.clothes.find().sort('brand',-1)
         return render_template("list.html", clothes=sortedClothing)
     else:
-        searchBy = request.form['toSearch']
-        return render_template("list.html", clothes=db.clothes.find({"item-name": searchBy}))
+        searchBy = request.form['toSearch'].lower()
+        for doc in db.clothes.find(): 
+            name = doc.get("item-name").lower()
+            if (name.find(searchBy) != -1): 
+                db.clothes.update_one({"_id": doc.get("_id")}, {"$set":{"found":"1"}})
+            else: 
+                 db.clothes.update_one({"_id": doc.get("_id")}, {"$set":{"found":"0"}})
+
+        return render_template("list.html", clothes=db.clothes.find({"found": "1"}))
 
 
 @app.route("/edit.html", methods=['GET','POST'])
