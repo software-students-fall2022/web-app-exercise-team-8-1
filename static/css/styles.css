@@ -52,16 +52,24 @@
         justify-content: space-between;
         align-items: center;
         width: 100%;
-        width: 30px;
-        height: 30px;
-        margin: 0 10px;
+        height: 100%;
         border: none;
         background-color: transparent;
         margin: 0;
         padding: 0;
         cursor: pointer;
     }
-    /* .burger_click: {} */
+    .filter_icon {
+        height: 100%;
+        width: 100%;
+        font-size: 5vw;
+    }
+    .filter_icon:hover {
+        scale: 1.1;
+    }
+    .burger:hover {
+        scale: 1.1;
+    }
     .burger {
         cursor: pointer;
         display: flex;

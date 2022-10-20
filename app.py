@@ -4,6 +4,9 @@ import pymongo
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from flask import Flask, render_template, request, redirect, abort, url_for, make_response
+import logging # print function
+
+
 # following set up from readme: https://github.com/nyu-software-engineering/flask-pymongo-web-app-example
 app=Flask(__name__)
 
@@ -164,15 +167,9 @@ def handle_query():
         return render_template("list.html", clothes=sortedClothing)
     elif(request.form['sub'] == 'Filter'):
         filterBy = request.form['filterList']
-        if (filterBy == 'default'):
-            filteredClothing = db.clothes.find()
-        elif (filterBy == 'brand'):
-            filteredClothing = db.clothes.find({'brand': 'Ellesse'})
-        elif (filterBy == 'color'):
-            filteredClothing = db.clothes.find({'color': 'pink'})
-        elif (filterBy == 'size'):
-            filteredClothing = db.clothes.find({'sizes-available': 's'})
-        return render_template("list.html", clothes=filteredClothing)
+        # if(filterBy == 'default'):
+        #     filteredClothing = db.clothes.find()
+        # return render_template("list.html", clothes=filteredClothing)
     else:
         searchBy = request.form['toSearch'].lower()
         for doc in db.clothes.find(): 
