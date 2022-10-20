@@ -15,17 +15,27 @@
         add tags here for different pages
     </header>
     <main>
-        <section class="filters" style="display: none;">
-            <li>
-                <ul><a href="#">Brand</a></ul>
-                <!--action_expand-->
-                <ul><a href="#">Price</a></ul>
-                <!--action_expand-->
-                <ul><a href="#">Color</a></ul>
-                <!--action_expand-->
-                <ul><a href="#">style</a></ul>
-                <!--action_expand-->
-            </li>
+        <section class="filters">
+            <div class="burger">
+                <a class="burger_click" href="#">
+                    <div class="burger__line"></div>
+                    <div class="burger__line"></div>
+                    <div class="burger__line"></div>
+                </a>
+            </div>
+
+            <div class="filter_list">
+                <li style="display: none;">
+                    <ul><a href="#">Brand</a></ul>
+                    <!--action_expand-->
+                    <ul><a href="#">Price</a></ul>
+                    <!--action_expand-->
+                    <ul><a href="#">Color</a></ul>
+                    <!--action_expand-->
+                    <ul><a href="#">style</a></ul>
+                    <!--action_expand-->
+                </li>
+            </div>
         </section>
         <section class="search">
             <h2>View item</h2>
@@ -42,35 +52,27 @@
             </form> 
         
 
-        <input class = "input-bar" type = "text" placeholder = "Search for item">
-         <select>
-            <option value = "All">All</option>
-            <option value = "Clothing">Clothing</option>
-            <option value = "Brands">Electronics</option>
-            <option value = "Food">Food</option>
-            <option value = "Furniture">Furniture</option>
-            <option value = "Toys">Toys</option>
-            <option value = "Other">Other</option>
-        </select> {%for clothing in clothes%}
-                <div>
-                    <div class="product">
-                        <img src="{{clothing['image']}}" height=4 00px>
-                        <p> {{clothing['item-name']}} </p>
-                        <p> from {{clothing['brand']}}</p>
-                        <p> ${{clothing['price']}}</p>
-                        <p> Available sizes: {{clothing['sizes-available']}}</p>
-                        <a href="cart.html">
-                            <button class="addToCart">
-                    Add to cart
-                    </button>
-                        </a>
+            <input class = "input-bar" type = "text" placeholder = "Search for item">
+            {%for clothing in clothes%}
+            <div>
+                <div class="product">
+                    <img src="{{clothing['image']}}" height=4 00px>
+                    <p> {{clothing['item-name']}} </p>
+                    <p> from {{clothing['brand']}}</p>
+                    <p> ${{clothing['price']}}</p>
+                    <p> Available sizes: {{clothing['sizes-available']}}</p>
+                    <a href="cart.html">
+                        <button class="addToCart">
+                            Add to cart
+                        </button>
+                    </a>
 
-                    </div>
                 </div>
-                {% endfor %}
+            </div>
+            {% endfor %}
         </section>
     </main>
-    <footer class="footer">
+    <footer>
         <div class="footer_div">
             <p>© 2020 mainpage Shop</p>
         </div>

@@ -2,11 +2,10 @@
     body {
         display: flex;
         flex-direction: column;
-        width: 90vw;
+        width: max-content;
         align-items: center;
         justify-content: center;
         margin: 0 auto;
-        font-family: 'Roboto', sans-serif;
     }
     header {
         flex: 1;
@@ -14,14 +13,67 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        width: 90vw;
+        width: 100%;
     }
     main {
         flex: 2;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-between;
         align-items: center;
         width: 90vw;
+    }
+    footer {
+        flex: 3;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+    .filters {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+    .burger_click {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        width: 30px;
+        height: 30px;
+        margin: 0 10px;
+    }
+    .burger {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        margin: 0 10px;
+        align-self: flex-end;
+    }
+    .burger__line {
+        width: 100%;
+        height: 5px;
+        background-color: #000;
+    }
+    .filter_list {
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100 vw;
+        height: 100vh;
+    }
+}
+
+@media screen and (min-width: 651px) {
+    main {
+        display: none;
     }
 }
