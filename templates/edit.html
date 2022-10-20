@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Account settings
+        </title>
+        <link rel = "stylesheet" type ="text/css" href = "../static/css/basic.css"/>
+    </head>
+
+    <body>
+        <h1>
+            This  page is not finished yet
+        </h1>
+        <h2 class = "web-title">
+            APPNAME
+        </h2>
+
+        <form method = "POST" action="/edit.html">
+            <label for="email"><b>Email</b></label>
+            <input class = "input-bar" type = "text" placeholder = "Email" name = "email">
+            
+            <label for="username"><b>Username</b></label>
+            <input class = "input-bar" type = "text" placeholder = "Username" name = "username">
+
+            <label for="password"><b>Password</b></label>
+            <input class = "input-bar" type = "text" placeholder = "Password" name = "password">
+
+            <p class = "error">{{message}}</p>
+
+            <button class = "save-sign-button" type = "submit">
+                Save
+            </button>
+        </form>
+
+        <a href="delete.html"><p class = "delete"><u>
+            Delete 
+        </u></p></a>
+        <a href="list.html"><p class = "list"><u>
+            Go back to items 
+        </u></p></a>
+        <script src="../static/js/script.js"></script>
+    </body>
+</html>
