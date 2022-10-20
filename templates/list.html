@@ -114,7 +114,7 @@
         <section class="search">
             <h2>View item</h2>
 
-            <form action="/list.html" method="POST">
+            <form action="" method="POST">
                 <label for="toSort">Sort By</label>
                 <select id="sortBy" name="sortList">
                 <option value="default">  </option>
@@ -126,7 +126,7 @@
                 <input name = "sub" type="submit" value="Display">
             </form> 
         
-            <form action="/list.html" method="POST">
+            <form action="" method="POST">
                 <label for="toSearch"> Search</label>
             <input class = "input-bar" type = "text" placeholder = "Search for item" name = "toSearch">
             <input name = "sub" type="submit" value="Search">
@@ -140,11 +140,10 @@
                     <p> from {{clothing['brand']}}</p>
                     <p> ${{clothing['price']}}</p>
                     <p> Available sizes: {{clothing['sizes-available']}}</p>
-                    <a href="cart.html">
-                        <button class="addToCart">
-                            Add to cart
-                        </button>
-                    </a>
+                        
+                    <a href="./item.html" value =  "{{clothing['_id']}}" ><button> View item </button></a>
+
+                    <a href="./cart.html" ><button> Add to Cart </button></a>
 
                 </div>
             </div>

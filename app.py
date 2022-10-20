@@ -16,9 +16,9 @@ db = cluster["clothes-app"]
 clothing_collection = db["all-clothes"]
 # collection for users
 users = db["users"]
-
-
 clothes = db["clothes"]
+cart = db["cart"]
+
 
 shirt1 = {
     "image" : "https://images.asos-media.com/products/adidas-originals-oversized-shirt-in-bliss-purple/202997913-1-purple?$n_640w$&wid=634&fit=constrain",
@@ -162,6 +162,7 @@ def handle_query():
         elif (sortBy == 'brand'):
             sortedClothing = db.clothes.find().sort('brand',-1)
         return render_template("list.html", clothes=sortedClothing)
+        
     elif(request.form['sub'] == 'Filter'):
         filterBy = request.form['filterList']
         if (filterBy == 'default'):
@@ -173,7 +174,8 @@ def handle_query():
         elif (filterBy == 'size'):
             filteredClothing = db.clothes.find({'sizes-available': 's'})
         return render_template("list.html", clothes=filteredClothing)
-    else:
+
+    elif (request.form['sub'] == 'Search'):
         searchBy = request.form['toSearch'].lower()
         for doc in db.clothes.find(): 
             name = doc.get("item-name").lower()
@@ -181,8 +183,16 @@ def handle_query():
                 db.clothes.update_one({"_id": doc.get("_id")}, {"$set":{"found":"1"}})
             else: 
                  db.clothes.update_one({"_id": doc.get("_id")}, {"$set":{"found":"0"}})
-
         return render_template("list.html", clothes=db.clothes.find({"found": "1"}))
+
+@app.route("/cart.html")
+def handle_cart():
+    return render_template("cart.html")
+
+@app.route("/item.html")
+def handle_item():
+    return render_template("item.html")
+
 
 
 @app.route("/edit.html", methods=['GET','POST'])
