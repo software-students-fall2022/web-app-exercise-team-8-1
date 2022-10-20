@@ -66,9 +66,11 @@
                     <p> ${{clothing['price']}}</p>
                     <p> Available sizes: {{clothing['sizes-available']}}</p>
                     <a href="cart.html">
-                        <button class="addToCart">
+                        <form method="PUT" action=""> 
+                        <button name= "CartAdd" class="addToCart" value = "{{clothing['_id']}}">
                             Add to cart
                         </button>
+                    </form>
                     </a>
 
                 </div>

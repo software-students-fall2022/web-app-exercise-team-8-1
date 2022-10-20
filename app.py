@@ -15,9 +15,8 @@ db = cluster["clothes-app"]
 clothing_collection = db["all-clothes"]
 # collection for users
 users = db["users"]
-
-
 clothes = db["clothes"]
+
 
 shirt1 = {
     "image" : "https://images.asos-media.com/products/adidas-originals-oversized-shirt-in-bliss-purple/202997913-1-purple?$n_640w$&wid=634&fit=constrain",
