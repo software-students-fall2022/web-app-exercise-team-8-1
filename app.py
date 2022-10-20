@@ -146,21 +146,22 @@ def login():
         return render_template("login.html", message="")
 
 @app.route("/list.html", methods=['POST'])
-def handle_sort():
-    sortBy = request.form['sortList']
+def handle_query():
+    if (request.form['sub'] == 'Display'):
+        sortBy = request.form['sortList']
+        if (sortBy == 'default'): 
+            sortedClothing =  db.clothes.find()
+        elif (sortBy == 'name'):
+            sortedClothing = db.clothes.find().sort('item-name',1)
+        elif (sortBy == 'price'):
+            sortedClothing = db.clothes.find().sort('price',1)
+        elif (sortBy == 'brand'):
+            sortedClothing = db.clothes.find().sort('brand',-1)
+        return render_template("list.html", clothes=sortedClothing)
+    else:
+        searchBy = request.form['toSearch']
+        return render_template("list.html", clothes=db.clothes.find({"item-name": searchBy}))
 
-    if (sortBy == 'default'): 
-        sortedClothing =  db.clothes.find()
-    elif (sortBy == 'name'):
-        sortedClothing = db.clothes.find().sort('item-name',1)
-    elif (sortBy == 'price'):
-        sortedClothing = db.clothes.find().sort('price',1)
-    elif (sortBy == 'brand'):
-        sortedClothing = db.clothes.find().sort('brand',-1)
-        
-       
-
-    return render_template("list.html", clothes=sortedClothing)
 
 
 @app.route("/logout")
