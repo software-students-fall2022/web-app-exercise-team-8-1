@@ -168,15 +168,16 @@ def handle_query():
         
     elif(request.form['sub'] == 'Filter'):
         filterBy = request.form['filterList']
-        if (filterBy == 'default'):
-            filteredClothing = db.clothes.find()
-        elif (filterBy == 'brand'):
-            filteredClothing = db.clothes.find({'brand': 'Ellesse'})
-        elif (filterBy == 'color'):
-            filteredClothing = db.clothes.find({'color': 'pink'})
-        elif (filterBy == 'size'):
-            filteredClothing = db.clothes.find({'sizes-available': 's'})
-        return render_template("list.html", clothes=filteredClothing)
+        
+        # if (filterBy == 'default'):
+        #     filteredClothing = db.clothes.find()
+        # elif (filterBy == 'brand'):
+        #     filteredClothing = db.clothes.find({'brand': 'Ellesse'})
+        # elif (filterBy == 'color'):
+        #     filteredClothing = db.clothes.find({'color': 'pink'})
+        # elif (filterBy == 'size'):
+        #     filteredClothing = db.clothes.find({'sizes-available': 's'})
+        # return render_template("list.html", clothes=filteredClothing)
 
     elif (request.form['sub'] == 'Search'):
         searchBy = request.form['toSearch'].lower()
