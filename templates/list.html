@@ -51,8 +51,12 @@
                 <input type="submit" value="Display">
             </form> 
         
-
+            <form action="/list.html" method="POST">
+                <label for="toSearch"> Search</label>
             <input class = "input-bar" type = "text" placeholder = "Search for item">
+            <input type="submit" value="Search">
+            </form>
+            </section>
             {%for clothing in clothes%}
             <div>
                 <div class="product">
