@@ -27,6 +27,15 @@ shirt1 = {
     "sizes-available" : ["m", "l"]
 }
 
+shirt2 = {
+    "image" : "https://images.asos-media.com/products/ellesse-boyfriend-t-shirt-in-gray/200754513-1-grey?$n_320w$&wid=317&fit=constrain",
+    "item-name" : "Ellesse Boyfriend T-Shirt in Gray",
+    "price" : "31.00",
+    "color": "gray",
+    "brand" : "Ellesse",
+    "sizes-available" : ["s", "m", "l" , "xl"]
+}
+
 pants1 = {
     "image" : "https://images.asos-media.com/products/yas-flared-pants-with-chunky-belt-loops-in-black/203019328-1-black?$n_640w$&wid=634&fit=constrain",
     "item-name" : "YAS Flared Pants",
@@ -54,6 +63,18 @@ skirt1 = {
     "sizes-available" : ["s", "l"]
 }
 
+skirt2 = {
+    "image" : "https://images.asos-media.com/products/collusion-knit-skirt-in-jacquard/201055956-1-multi?$n_320w$&wid=317&fit=constrain",
+    "item-name" : "COLLUSION knit skirt in jacquard",
+    "price" : "46.90",
+    "color": "brown",
+    "brand" : "COLLUSION",
+    "sizes-available" : ["s", "l"]
+}
+
+
+
+
 
 user0 = {
      'email': 'test@email.com',
@@ -66,6 +87,7 @@ user0 = {
 
 # clothes added
 # clothes.insert_many([shirt1, pants1, sweater1, skirt1])
+# clothes.insert_one(shirt2)
 
 # can't test, having errors with connecting to database the correct way -Eduarda
 @app.route("/list.html") 
