@@ -1,7 +1,8 @@
-
+from email import message
 from pydoc import doc
 import pymongo
 from pymongo import MongoClient
+from bson.objectid import ObjectId
 from flask import Flask, render_template, request, redirect, abort, url_for, make_response
 # following set up from readme: https://github.com/nyu-software-engineering/flask-pymongo-web-app-example
 app=Flask(__name__)
@@ -120,7 +121,7 @@ def signup():
             }
             users.insert_one(new_user)
 
-            return redirect(url_for("handle_sort"))
+            return redirect(url_for("handle_query"))
         else:
             return render_template("login.html", message="User account already exists")
     else:
@@ -137,7 +138,7 @@ def login():
         x = users.find_one({'email': user_email})
         if x is not None:
             if x['password'] == user_password:
-                return redirect(url_for("handle_sort"))
+                return redirect(url_for("handle_query"))
             else:
                 return render_template("login.html", message="Wrong Password")
         else:
@@ -171,10 +172,24 @@ def handle_query():
         return render_template("list.html", clothes=db.clothes.find({"found": "1"}))
 
 
+@app.route("/edit.html", methods=['GET','POST'])
+def edit():
+    if request.method == "POST":
+        id  = request.values.get("_id")
+        user = users.find({"_id":ObjectId(id)})
+        return render_template("edit.html", users=user, message ="Your changes are saved")
+    else:
+        return render_template("edit.html", message="")
+    
+@app.route('/delete.html')
+def delete():
+    id = request.values.get("_id")
+    users.delete_one({'_id':ObjectId(id)})
+    return redirect(url_for('login'))
 
 @app.route("/logout")
 def logout():
-    return render_template('login.html')
+    return redirect(url_for('login'))
     
 
 if __name__ == '__main__':
