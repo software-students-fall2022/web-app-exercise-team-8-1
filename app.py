@@ -157,9 +157,22 @@ def handle_query():
             sortedClothing = db.clothes.find().sort('item-name',1)
         elif (sortBy == 'price'):
             sortedClothing = db.clothes.find().sort('price',1)
+        elif (sortBy == 'priceOpp'):
+            sortedClothing = db.clothes.find().sort('price',-1)
         elif (sortBy == 'brand'):
             sortedClothing = db.clothes.find().sort('brand',-1)
         return render_template("list.html", clothes=sortedClothing)
+    elif(request.form['sub'] == 'Filter'):
+        filterBy = request.form['filterList']
+        if (filterBy == 'default'):
+            filteredClothing = db.clothes.find()
+        elif (filterBy == 'brand'):
+            filteredClothing = db.clothes.find({'brand': 'Ellesse'})
+        elif (filterBy == 'color'):
+            filteredClothing = db.clothes.find({'color': 'pink'})
+        elif (filterBy == 'size'):
+            filteredClothing = db.clothes.find({'sizes-available': 's'})
+        return render_template("list.html", clothes=filteredClothing)
     else:
         searchBy = request.form['toSearch'].lower()
         for doc in db.clothes.find(): 
