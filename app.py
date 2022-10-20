@@ -1,4 +1,5 @@
 
+from pydoc import doc
 import pymongo
 from pymongo import MongoClient
 from flask import Flask, render_template, request, redirect, abort, url_for, make_response
@@ -159,8 +160,15 @@ def handle_query():
             sortedClothing = db.clothes.find().sort('brand',-1)
         return render_template("list.html", clothes=sortedClothing)
     else:
-        searchBy = request.form['toSearch']
-        return render_template("list.html", clothes=db.clothes.find({"item-name": searchBy}))
+        searchBy = request.form['toSearch'].lower()
+        for doc in db.clothes.find(): 
+            name = doc.get("item-name").lower()
+            if (name.find(searchBy) != -1): 
+                db.clothes.update_one({"_id": doc.get("_id")}, {"$set":{"found":"1"}})
+            else: 
+                 db.clothes.update_one({"_id": doc.get("_id")}, {"$set":{"found":"0"}})
+
+        return render_template("list.html", clothes=db.clothes.find({"found": "1"}))
 
 
 
