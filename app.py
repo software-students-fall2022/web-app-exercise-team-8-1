@@ -1,7 +1,8 @@
-
+from email import message
 from pydoc import doc
 import pymongo
 from pymongo import MongoClient
+from bson.objectid import ObjectId
 from flask import Flask, render_template, request, redirect, abort, url_for, make_response
 # following set up from readme: https://github.com/nyu-software-engineering/flask-pymongo-web-app-example
 app=Flask(__name__)
@@ -120,7 +121,7 @@ def signup():
             }
             users.insert_one(new_user)
 
-            return redirect(url_for("handle_sort"))
+            return redirect(url_for("handle_query"))
         else:
             return render_template("login.html", message="User account already exists")
     else:
@@ -137,7 +138,7 @@ def login():
         x = users.find_one({'email': user_email})
         if x is not None:
             if x['password'] == user_password:
-                return redirect(url_for("handle_sort"))
+                return redirect(url_for("handle_query"))
             else:
                 return render_template("login.html", message="Wrong Password")
         else:
@@ -156,9 +157,24 @@ def handle_query():
             sortedClothing = db.clothes.find().sort('item-name',1)
         elif (sortBy == 'price'):
             sortedClothing = db.clothes.find().sort('price',1)
+        elif (sortBy == 'priceOpp'):
+            sortedClothing = db.clothes.find().sort('price',-1)
         elif (sortBy == 'brand'):
             sortedClothing = db.clothes.find().sort('brand',-1)
         return render_template("list.html", clothes=sortedClothing)
+        
+    elif(request.form['sub'] == 'Filter'):
+        filterBy = request.form['filterList']
+        if (filterBy == 'default'):
+            filteredClothing = db.clothes.find()
+        elif (filterBy == 'brand'):
+            filteredClothing = db.clothes.find({'brand': 'Ellesse'})
+        elif (filterBy == 'color'):
+            filteredClothing = db.clothes.find({'color': 'pink'})
+        elif (filterBy == 'size'):
+            filteredClothing = db.clothes.find({'sizes-available': 's'})
+        return render_template("list.html", clothes=filteredClothing)
+
     elif (request.form['sub'] == 'Search'):
         searchBy = request.form['toSearch'].lower()
         for doc in db.clothes.find(): 
@@ -179,10 +195,24 @@ def handle_item():
 
 
 
+@app.route("/edit.html", methods=['GET','POST'])
+def edit():
+    if request.method == "POST":
+        id  = request.values.get("_id")
+        user = users.find({"_id":ObjectId(id)})
+        return render_template("edit.html", users=user, message ="Your changes are saved")
+    else:
+        return render_template("edit.html", message="")
+    
+@app.route('/delete.html')
+def delete():
+    id = request.values.get("_id")
+    users.delete_one({'_id':ObjectId(id)})
+    return redirect(url_for('login'))
 
 @app.route("/logout")
 def logout():
-    return render_template('login.html')
+    return redirect(url_for('login'))
     
 
 if __name__ == '__main__':
