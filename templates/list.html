@@ -48,11 +48,15 @@
                  <option value="price">Price (Lowest-Highest) </option>
                 <option value="brand">Brand (A-Z) </option>
 
-                <input type="submit" value="Display">
+                <input name = "sub" type="submit" value="Display">
             </form> 
         
-
-            <input class = "input-bar" type = "text" placeholder = "Search for item">
+            <form action="/list.html" method="POST">
+                <label for="toSearch"> Search</label>
+            <input class = "input-bar" type = "text" placeholder = "Search for item" name = "toSearch">
+            <input name = "sub" type="submit" value="Search">
+            </form>
+            </section>
             {%for clothing in clothes%}
             <div>
                 <div class="product">

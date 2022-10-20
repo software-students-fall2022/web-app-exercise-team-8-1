@@ -104,6 +104,13 @@ def signup():
         user_name = request.form["username"]
         user_password = request.form["password"]
 
+        if len(user_email) == 0:
+            return render_template("signup.html", message="No Email")
+        if len(user_name) == 0:
+            return render_template("signup.html", message="No Name")
+        if len(user_password) == 0:
+            return render_template("signup.html", message="No Password")
+
         if users.count_documents({'email': user_email}) == 0:
             new_user = {
                 'email': user_email,
@@ -139,21 +146,22 @@ def login():
         return render_template("login.html", message="")
 
 @app.route("/list.html", methods=['POST'])
-def handle_sort():
-    sortBy = request.form['sortList']
+def handle_query():
+    if (request.form['sub'] == 'Display'):
+        sortBy = request.form['sortList']
+        if (sortBy == 'default'): 
+            sortedClothing =  db.clothes.find()
+        elif (sortBy == 'name'):
+            sortedClothing = db.clothes.find().sort('item-name',1)
+        elif (sortBy == 'price'):
+            sortedClothing = db.clothes.find().sort('price',1)
+        elif (sortBy == 'brand'):
+            sortedClothing = db.clothes.find().sort('brand',-1)
+        return render_template("list.html", clothes=sortedClothing)
+    else:
+        searchBy = request.form['toSearch']
+        return render_template("list.html", clothes=db.clothes.find({"item-name": searchBy}))
 
-    if (sortBy == 'default'): 
-        sortedClothing =  db.clothes.find()
-    elif (sortBy == 'name'):
-        sortedClothing = db.clothes.find().sort('item-name',1)
-    elif (sortBy == 'price'):
-        sortedClothing = db.clothes.find().sort('price',1)
-    elif (sortBy == 'brand'):
-        sortedClothing = db.clothes.find().sort('brand',-1)
-        
-       
-
-    return render_template("list.html", clothes=sortedClothing)
 
 
 @app.route("/logout")
