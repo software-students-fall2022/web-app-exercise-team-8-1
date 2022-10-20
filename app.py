@@ -1,9 +1,5 @@
-
-<<<<<<< HEAD
 from email import message
-=======
 from pydoc import doc
->>>>>>> 3cf7cac768d937655657ffc271da2c0d077586c7
 import pymongo
 from pymongo import MongoClient
 from bson.objectid import ObjectId
