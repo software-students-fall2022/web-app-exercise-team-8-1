@@ -220,9 +220,9 @@ def edit():
     else:
         return render_template("edit.html", message="")
     
-@app.route("/confirmation.html")
+@app.route("/payment.html")
 def handle_confirmation(): 
-    return render_template("confirmation.html")
+    return render_template("payment.html")
 
 
 @app.route('/delete.html')
