@@ -24,73 +24,18 @@ clothes = db["clothes"]
 cart = db["cart"]
 
 
-shirt1 = {
-    "image" : "https://images.asos-media.com/products/adidas-originals-oversized-shirt-in-bliss-purple/202997913-1-purple?$n_640w$&wid=634&fit=constrain",
-    "item-name" : "ADIDAS Oversized Shirt",
-    "type" : "shirt",
-    "price" : 60.00,
-    "brand" : "adidas",
-    "sizes-available" : ["m", "l"]
-}
-
-shirt2 = {
-    "image" : "https://images.asos-media.com/products/ellesse-boyfriend-t-shirt-in-gray/200754513-1-grey?$n_320w$&wid=317&fit=constrain",
-    "item-name" : "Ellesse Boyfriend T-Shirt in Gray",
-    "price" : 31.00,
-    "color": "gray",
-    "brand" : "Ellesse",
-    "sizes-available" : ["s", "m", "l" , "xl"]
-}
-
-pants1 = {
-    "image" : "https://images.asos-media.com/products/yas-flared-pants-with-chunky-belt-loops-in-black/203019328-1-black?$n_640w$&wid=634&fit=constrain",
-    "item-name" : "YAS Flared Pants",
-    "price" : 79.00,
-    "color": "black",
-    "brand" : "YAS",
-    "sizes-available" : ["s", "l", "xl"]
-}
-
-sweater1 = {
-    "image" : "https://images.asos-media.com/products/topshop-knitted-textured-stripe-cardi-in-chocolate-and-pink/201993808-1-chocolatepik?$n_320w$&wid=317&fit=constrain",
-    "item-name" : "Topshop knitted textured stripe cardigan",
-    "price" : 67.00,
-    "color": "chocolate",
-    "brand" : "Topshop",
-    "sizes-available" : ["s", "l"]
-}
-
-skirt1 = {
-    "image" : "https://images.asos-media.com/products/style-cheat-satin-wrap-midi-skirt-in-pink-and-red-heart-print-part-of-a-set/201847163-1-pinkred?$n_320w$&wid=317&fit=constrain",
-    "item-name" : "Style Cheat satin wrap midi skirt",
-    "price" : 49.00,
-    "color": "pink",
-    "brand" : "Style Cheat",
-    "sizes-available" : ["s", "l"]
-}
-
-skirt2 = {
-    "image" : "https://images.asos-media.com/products/collusion-knit-skirt-in-jacquard/201055956-1-multi?$n_320w$&wid=317&fit=constrain",
-    "item-name" : "COLLUSION knit skirt in jacquard",
-    "price" : 46.90,
-    "color": "brown",
-    "brand" : "COLLUSION",
-    "sizes-available" : ["s", "l"]
-}
-
-
 user0 = {
      'email': 'test@email.com',
     'username': 'test',
      'password': 'test123'    
 }
 
+#clothes.delete_one({"item-name" :  "Urban Revivo denim shortsin mid wash denim"})
 # user has already been added 
 # users.insert_one(user0)
-
 # clothes added
-# clothes.insert_many([shirt1, pants1, sweater1, skirt1])
-# clothes.insert_one(shirt2)
+#clothes.insert_many([item1, item2, item3, item4])
+#clothes.insert_one(item4)
 
 # can't test, having errors with connecting to database the correct way -Eduarda
 @app.route("/list.html") 
@@ -202,14 +147,15 @@ def handle_view():
     if (id == ""):
         return "Oops! Looks like something went wrong."
     else:
-        item = clothes.find({"_id": ObjectId(id)})
-        return render_template("item.html", item = item)
+        #cart.delete_many({})
+        item = clothes.find_one({"_id": ObjectId(id)})
+        return render_template("item.html", item=item)
 
 
 @app.route("/cart.html", methods = ['GET'])
 def handle_item():
     if (request.args.get('item') == ""):
-        displayCart = cart.find()
+        displayCart = cart.find_one()
         return render_template("cart.html", clothes=displayCart)
     else: 
         try: 
@@ -232,7 +178,16 @@ def edit():
         return render_template("account.html", users=user, message ="Your changes are saved")
     else:
         return render_template("account.html", message="")
- 
+
+@app.route("/cart.html", methods = ['Post'])
+def edit_cart():
+    try:
+        cart_id = request.form["item"]
+        cart.delete_one({"_id": ObjectId(cart_id)})
+    except:
+        return render_template("cart.html", message="deletion failed")
+    finally:
+        return redirect(url_for('edit_cart'))
     
 @app.route("/payment.html")
 def handle_confirmation(): 

@@ -4,10 +4,25 @@
         <title>
             cartpage
         </title>
-        <link rel = "stylesheet" type ="text/css" href = "../static/css/basic.css"/>
+        <link rel="stylesheet" , href="../static/css/styles.css">
     </head>
 
     <body>
+        <header>
+        <h1>
+            Your Cart
+        </h1>
+        <a href="account.html">
+            <p class="account"><u>
+            Account 
+        </u></p>
+        </a>
+        <a href="list.html">
+            <p class="list"><u>
+           Catalogue
+        </u></p>
+        </a>
+    </header>
         <main>
         </main>
         <footer>
@@ -26,6 +41,12 @@
                     <p> {{clothing['item-name']}} </p>
                     <p> from {{clothing['brand']}}</p>
                     <p> ${{clothing['price']}}</p>
+
+                    <form action= "cart.html" method="Post">
+                        <input type = "hidden" id = "objID" name = "item" value ="{{clothing['_id']}}">
+                        <button type="submit"> Delete from Cart</button>
+                   </form>
+                   <p>{{message}}</p>
                 </div>
             </div>
             {% endfor %}
