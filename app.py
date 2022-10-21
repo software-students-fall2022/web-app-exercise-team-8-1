@@ -5,6 +5,7 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 from flask import Flask, render_template, request, redirect, abort, url_for, make_response
 import logging # print function
+import re
 
 
 # following set up from readme: https://github.com/nyu-software-engineering/flask-pymongo-web-app-example
@@ -107,13 +108,15 @@ def signup():
         user_email = request.form["email"]
         user_name = request.form["username"]
         user_password = request.form["password"]
+        valid_email = "([A-Z]|[a-z]|[0-9])+@([a-z]|[A-Z])+\.(([a-z]){2}|([a-z]){3})"
+        validation = re.match(valid_email, user_email)
 
-        if len(user_email) == 0:
-            return render_template("signup.html", message="No Email")
+        if len(user_email) == 0 or validation is None:
+            return render_template("signup.html", message="Please enter valid email")
         if len(user_name) == 0:
-            return render_template("signup.html", message="No Name")
+            return render_template("signup.html", message="Please enter valid username")
         if len(user_password) == 0:
-            return render_template("signup.html", message="No Password")
+            return render_template("signup.html", message="Please enter valid password")
 
         if users.count_documents({'email': user_email}) == 0:
             new_user = {
@@ -137,6 +140,14 @@ def login():
         user_email = request.form["email"]
         user_password = request.form["password"]
         # check credentials
+        valid_email = "([A-Z]|[a-z]|[0-9])+@([a-z]|[A-Z])+\.(([a-z]){2}|([a-z]){3})"
+        validation = re.match(valid_email, user_email)
+
+        if len(user_email) == 0 or validation is None:
+            return render_template("login.html", message="Please enter valid email")
+        if len(user_password) == 0:
+            return render_template("login.html", message="Please enter valid Password")
+
         x = users.find_one({'email': user_email})
         if x is not None:
             if x['password'] == user_password:
