@@ -27,7 +27,7 @@ shirt1 = {
     "image" : "https://images.asos-media.com/products/adidas-originals-oversized-shirt-in-bliss-purple/202997913-1-purple?$n_640w$&wid=634&fit=constrain",
     "item-name" : "ADIDAS Oversized Shirt",
     "type" : "shirt",
-    "price" : "60.00",
+    "price" : 60.00,
     "brand" : "adidas",
     "sizes-available" : ["m", "l"]
 }
@@ -35,7 +35,7 @@ shirt1 = {
 shirt2 = {
     "image" : "https://images.asos-media.com/products/ellesse-boyfriend-t-shirt-in-gray/200754513-1-grey?$n_320w$&wid=317&fit=constrain",
     "item-name" : "Ellesse Boyfriend T-Shirt in Gray",
-    "price" : "31.00",
+    "price" : 31.00,
     "color": "gray",
     "brand" : "Ellesse",
     "sizes-available" : ["s", "m", "l" , "xl"]
@@ -44,7 +44,7 @@ shirt2 = {
 pants1 = {
     "image" : "https://images.asos-media.com/products/yas-flared-pants-with-chunky-belt-loops-in-black/203019328-1-black?$n_640w$&wid=634&fit=constrain",
     "item-name" : "YAS Flared Pants",
-    "price" : "79.00",
+    "price" : 79.00,
     "color": "black",
     "brand" : "YAS",
     "sizes-available" : ["s", "l", "xl"]
@@ -53,7 +53,7 @@ pants1 = {
 sweater1 = {
     "image" : "https://images.asos-media.com/products/topshop-knitted-textured-stripe-cardi-in-chocolate-and-pink/201993808-1-chocolatepik?$n_320w$&wid=317&fit=constrain",
     "item-name" : "Topshop knitted textured stripe cardigan",
-    "price" : "67.00",
+    "price" : 67.00,
     "color": "chocolate",
     "brand" : "Topshop",
     "sizes-available" : ["s", "l"]
@@ -62,7 +62,7 @@ sweater1 = {
 skirt1 = {
     "image" : "https://images.asos-media.com/products/style-cheat-satin-wrap-midi-skirt-in-pink-and-red-heart-print-part-of-a-set/201847163-1-pinkred?$n_320w$&wid=317&fit=constrain",
     "item-name" : "Style Cheat satin wrap midi skirt",
-    "price" : "49.00",
+    "price" : 49.00,
     "color": "pink",
     "brand" : "Style Cheat",
     "sizes-available" : ["s", "l"]
@@ -71,7 +71,7 @@ skirt1 = {
 skirt2 = {
     "image" : "https://images.asos-media.com/products/collusion-knit-skirt-in-jacquard/201055956-1-multi?$n_320w$&wid=317&fit=constrain",
     "item-name" : "COLLUSION knit skirt in jacquard",
-    "price" : "46.90",
+    "price" : 46.90,
     "color": "brown",
     "brand" : "COLLUSION",
     "sizes-available" : ["s", "l"]
@@ -167,14 +167,14 @@ def handle_query():
         return render_template("list.html", clothes=sortedClothing)
         
     elif(request.form['sub'] == 'Filter'):
-        filterBy = request.form['filterList']
-        # if (filterBy == 'brand'):
-        #     filteredClothing = db.clothes.find({'brand': 'Ellesse'})
-        # if (filterBy == 'color'):
-        #     filteredClothing = db.clothes.find({'color': 'pink'})
-        # if (filterBy == 'size'):
-        #     filteredClothing = db.clothes.find({'sizes-available': 's'})
-        # return render_template("list.html", clothes=filteredClothing)
+        brands = request.form.getlist('Brand')
+        prices = request.form.getlist('price')
+        sizes = request.form.getlist('size')
+        results = db.clothes.find({
+            'brand': {'$in': brands}, 
+            'price': {'$lte': prices}, 
+            'sizes-available': {'$in': sizes}})
+        return render_template("list.html", clothes=results)
 
     elif (request.form['sub'] == 'Search'):
         searchBy = request.form['toSearch'].lower()
