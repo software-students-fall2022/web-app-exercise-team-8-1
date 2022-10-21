@@ -187,7 +187,7 @@ def edit_cart():
     except:
         return render_template("cart.html", message = "deletion failed")
     finally:
-        return render_template("cart.html", message = "deletion success")
+        return redirect(url_for('edit_cart'))
     
 @app.route("/payment.html")
 def handle_confirmation(): 
