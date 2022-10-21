@@ -195,13 +195,21 @@ def handle_query():
 
 @app.route("/cart.html", methods = ['GET'])
 def handle_item():
-    id = request.args.get('item')
-    found =  db.clothes.find({"_id" : ObjectId(id)})
-    cart.insert_one(found)
-    displayCart = cart.find()
-
-    return render_template("cart.html", clothes=displayCart)
-
+    if (request.args.get('item') == ""):
+        displayCart = cart.find()
+        return render_template("cart.html", clothes=displayCart)
+    else: 
+        try: 
+            id = request.args.get('item')
+            found =  db.clothes.find_one({"_id" : ObjectId(id)})
+            cart.insert_one(found)
+        
+        except:
+            print("DO NOTHING")
+            
+        finally: 
+            displayCart = cart.find()
+            return render_template("cart.html", clothes=displayCart)
 
 @app.route("/edit.html", methods=['GET','POST'])
 def edit():
