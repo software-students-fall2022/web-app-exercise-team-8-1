@@ -185,7 +185,7 @@ def edit_cart():
         cart_id = request.form["item"]
         cart.delete_one({"_id": ObjectId(cart_id)})
     except:
-        return render_template("cart.html", message = "deletion failed")
+        return render_template("cart.html", message="deletion failed")
     finally:
         return redirect(url_for('edit_cart'))
     
