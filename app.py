@@ -175,6 +175,19 @@ def edit():
     if request.method == "POST":
         id  = request.values.get("_id")
         user = users.find({"_id":ObjectId(id)})
+
+        user_email = request.form["email"]
+        user_name = request.form["username"]
+        user_password = request.form["password"]
+        valid_email = "([A-Z]|[a-z]|[0-9])+@([a-z]|[A-Z])+\.(([a-z]){2}|([a-z]){3})"
+        validation = re.match(valid_email, user_email)
+        if len(user_email) == 0 or validation is None:
+            return render_template("account.html", message="Please enter valid email")
+        if len(user_name) == 0:
+            return render_template("account.html", message="Please enter valid username")
+        if len(user_password) == 0:
+            return render_template("account.html", message="Please enter valid password")
+
         return render_template("account.html", users=user, message ="Your changes are saved")
     else:
         return render_template("account.html", message="")
