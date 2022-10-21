@@ -98,11 +98,10 @@ user0 = {
 @app.route("/list.html") 
 def shop():
     #print(pymongo.version)
-    #no filter requested, no GET or POST
     clothing = clothes.find()
     return render_template('list.html', clothes=clothing)
 
-@app. route("/signup.html", methods=["POST", "GET"])
+@app.route("/signup.html", methods=["POST", "GET"])
 def signup():
     if request.method == "POST":
         user_email = request.form["email"]
@@ -150,50 +149,54 @@ def login():
     else:
         return render_template("login.html", message="")
 
-@app.route("/list.html", methods=['POST'])
+@app.route("/list.html", methods=['POST', 'GET'])
 def handle_query():
-    if (request.form['sub'] == 'Display'):
-        sortBy = request.form['sortList']
-        if (sortBy == 'default'): 
-            sortedClothing =  db.clothes.find()
-        elif (sortBy == 'name'):
-            sortedClothing = db.clothes.find().sort('item-name',1)
-        elif (sortBy == 'price'):
-            sortedClothing = db.clothes.find().sort('price',1)
-        elif (sortBy == 'priceOpp'):
-            sortedClothing = db.clothes.find().sort('price',-1)
-        elif (sortBy == 'brand'):
-            sortedClothing = db.clothes.find().sort('brand',-1)
-        return render_template("list.html", clothes=sortedClothing)
-        
-    elif(request.form['sub'] == 'Filter'):
-        filterBy = request.form['filterList']
-        # if (filterBy == 'brand'):
-        #     filteredClothing = db.clothes.find({'brand': 'Ellesse'})
-        # if (filterBy == 'color'):
-        #     filteredClothing = db.clothes.find({'color': 'pink'})
-        # if (filterBy == 'size'):
-        #     filteredClothing = db.clothes.find({'sizes-available': 's'})
-        # return render_template("list.html", clothes=filteredClothing)
+    if request.method == "POST":
+        if (request.form['sub'] == 'Display'):
+            sortBy = request.form['sortList']
+            if (sortBy == 'default'): 
+                sortedClothing =  db.clothes.find()
+            elif (sortBy == 'name'):
+                sortedClothing = db.clothes.find().sort('item-name',1)
+            elif (sortBy == 'price'):
+                sortedClothing = db.clothes.find().sort('price',1)
+            elif (sortBy == 'priceOpp'):
+                sortedClothing = db.clothes.find().sort('price',-1)
+            elif (sortBy == 'brand'):
+                sortedClothing = db.clothes.find().sort('brand',-1)
+            return render_template("list.html", clothes=sortedClothing)
+            
+        elif(request.form['sub'] == 'Filter'):
+            filterBy = request.form['filterList']
+            if (filterBy == 'brand'):
+                filteredClothing = db.clothes.find({'brand': 'Ellesse'})
+            if (filterBy == 'color'):
+                filteredClothing = db.clothes.find({'color': 'pink'})
+            if (filterBy == 'size'):
+                filteredClothing = db.clothes.find({'sizes-available': 's'})
+            return render_template("list.html", clothes=filteredClothing)
 
-    elif (request.form['sub'] == 'Search'):
-        searchBy = request.form['toSearch'].lower()
-        for doc in db.clothes.find(): 
-            name = doc.get("item-name").lower()
-            if (name.find(searchBy) != -1): 
-                db.clothes.update_one({"_id": doc.get("_id")}, {"$set":{"found":"1"}})
-            else: 
-                 db.clothes.update_one({"_id": doc.get("_id")}, {"$set":{"found":"0"}})
-        return render_template("list.html", clothes=db.clothes.find({"found": "1"}))
+        elif (request.form['sub'] == 'Search'):
+            searchBy = request.form['toSearch'].lower()
+            for doc in db.clothes.find(): 
+                name = doc.get("item-name").lower()
+                if (name.find(searchBy) != -1): 
+                    db.clothes.update_one({"_id": doc.get("_id")}, {"$set":{"found":"1"}})
+                else: 
+                    db.clothes.update_one({"_id": doc.get("_id")}, {"$set":{"found":"0"}})
+            return render_template("list.html", clothes=db.clothes.find({"found": "1"}))
+    else:
+        item = request.form["cart"]
+        return redirect(url_for("cart.html"))
 
-@app.route("/cart.html")
-def handle_cart():
-    return render_template("cart.html")
+    
 
-@app.route("/item.html")
+
+
+@app.route("/cart.html", methods = ['GET'])
 def handle_item():
-    return render_template("item.html")
-
+    id = request.args.get('item')
+    return id
 
 
 @app.route("/edit.html", methods=['GET','POST'])
@@ -213,6 +216,7 @@ def delete():
 
 @app.route("/logout")
 def logout():
+    cart.delete_many({})
     return redirect(url_for('login'))
     
 

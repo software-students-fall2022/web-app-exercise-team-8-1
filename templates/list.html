@@ -143,9 +143,10 @@
                     <p> ${{clothing['price']}}</p>
                     <p> Available sizes: {{clothing['sizes-available']}}</p>
                         
-                    <a href="./item.html" value =  "{{clothing['_id']}}" ><button> View item </button></a>
-
-                    <a href="./cart.html" ><button> Add to Cart </button></a>
+                    <form action= "cart.html" method="GET">
+                         <input type = "hidden" id = "objID" name = "item" value ="{{clothing['_id']}}">
+                         <button type="submit"> Add to Cart</button>
+                    </form>
 
                 </div>
             </div>
