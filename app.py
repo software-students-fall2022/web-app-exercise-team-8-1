@@ -4,6 +4,9 @@ import pymongo
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from flask import Flask, render_template, request, redirect, abort, url_for, make_response
+import logging # print function
+
+
 # following set up from readme: https://github.com/nyu-software-engineering/flask-pymongo-web-app-example
 app=Flask(__name__)
 
@@ -185,6 +188,8 @@ def handle_query():
     else:
         item = request.form["cart"]
         return redirect(url_for("cart.html"))
+
+    
 
 
 
