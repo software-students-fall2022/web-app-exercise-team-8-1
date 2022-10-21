@@ -222,6 +222,7 @@ def handle_item():
             displayCart = cart.find()
             return render_template("cart.html", clothes=displayCart)
 
+
 @app.route("/edit.html", methods=['GET','POST'])
 def edit():
     if request.method == "POST":
@@ -230,6 +231,7 @@ def edit():
         return render_template("edit.html", users=user, message ="Your changes are saved")
     else:
         return render_template("edit.html", message="")
+ 
     
 @app.route("/payment.html")
 def handle_confirmation(): 
@@ -242,7 +244,7 @@ def delete():
     users.delete_one({'_id':ObjectId(id)})
     return redirect(url_for('login'))
 
-@app.route("/logout")
+@app.route("/logout.html")
 def logout():
     cart.delete_many({})
     return redirect(url_for('login'))
