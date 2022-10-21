@@ -19,21 +19,16 @@
             Shopping Cart
         </h2>
         <div>
-            <div class = "product">
-                <div class = "image">
-                    <p class = "placeHolder">
-                        IMAGE
-                    </p>
+            {%for clothing in clothes%}
+            <div>
+                <div class="product">
+                    <img src="{{clothing['image']}}" height=400px>
+                    <p> {{clothing['item-name']}} </p>
+                    <p> from {{clothing['brand']}}</p>
+                    <p> ${{clothing['price']}}</p>
                 </div>
             </div>
-            <div class = "product">
-                <div class = "image">
-                    <p class = "placeHolder">
-                        IMAGE
-                    </p>
-                </div>
-            </div>
-        </div>
+            {% endfor %}
 
         <a href="confirmation.html"><button class = "checkout">
             Checkout
