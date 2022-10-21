@@ -5,6 +5,7 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 from flask import Flask, render_template, request, redirect, abort, url_for, make_response
 import logging # print function
+import re
 
 
 # following set up from readme: https://github.com/nyu-software-engineering/flask-pymongo-web-app-example
@@ -78,9 +79,6 @@ skirt2 = {
 }
 
 
-
-
-
 user0 = {
      'email': 'test@email.com',
     'username': 'test',
@@ -98,23 +96,24 @@ user0 = {
 @app.route("/list.html") 
 def shop():
     #print(pymongo.version)
-    #no filter requested, no GET or POST
     clothing = clothes.find()
     return render_template('list.html', clothes=clothing)
 
-@app. route("/signup.html", methods=["POST", "GET"])
+@app.route("/signup.html", methods=["POST", "GET"])
 def signup():
     if request.method == "POST":
         user_email = request.form["email"]
         user_name = request.form["username"]
         user_password = request.form["password"]
+        valid_email = "([A-Z]|[a-z]|[0-9])+@([a-z]|[A-Z])+\.(([a-z]){2}|([a-z]){3})"
+        validation = re.match(valid_email, user_email)
 
-        if len(user_email) == 0:
-            return render_template("signup.html", message="No Email")
+        if len(user_email) == 0 or validation is None:
+            return render_template("signup.html", message="Please enter valid email")
         if len(user_name) == 0:
-            return render_template("signup.html", message="No Name")
+            return render_template("signup.html", message="Please enter valid username")
         if len(user_password) == 0:
-            return render_template("signup.html", message="No Password")
+            return render_template("signup.html", message="Please enter valid password")
 
         if users.count_documents({'email': user_email}) == 0:
             new_user = {
@@ -138,6 +137,14 @@ def login():
         user_email = request.form["email"]
         user_password = request.form["password"]
         # check credentials
+        valid_email = "([A-Z]|[a-z]|[0-9])+@([a-z]|[A-Z])+\.(([a-z]){2}|([a-z]){3})"
+        validation = re.match(valid_email, user_email)
+
+        if len(user_email) == 0 or validation is None:
+            return render_template("login.html", message="Please enter valid email")
+        if len(user_password) == 0:
+            return render_template("login.html", message="Please enter valid Password")
+
         x = users.find_one({'email': user_email})
         if x is not None:
             if x['password'] == user_password:
@@ -150,69 +157,97 @@ def login():
     else:
         return render_template("login.html", message="")
 
-@app.route("/list.html", methods=['POST'])
+@app.route("/list.html", methods=['POST', 'GET'])
 def handle_query():
-    if (request.form['sub'] == 'Display'):
-        sortBy = request.form['sortList']
-        if (sortBy == 'default'): 
-            sortedClothing =  db.clothes.find()
-        elif (sortBy == 'name'):
-            sortedClothing = db.clothes.find().sort('item-name',1)
-        elif (sortBy == 'price'):
-            sortedClothing = db.clothes.find().sort('price',1)
-        elif (sortBy == 'priceOpp'):
-            sortedClothing = db.clothes.find().sort('price',-1)
-        elif (sortBy == 'brand'):
-            sortedClothing = db.clothes.find().sort('brand',-1)
-        return render_template("list.html", clothes=sortedClothing)
-        
-    elif(request.form['sub'] == 'Filter'):
-        brands = request.form.getlist('Brand')
-        prices = request.form.getlist('price')
-        sizes = request.form.getlist('size')
-        results = db.clothes.find({
-            'brand': {'$in': brands}, 
-            'price': {'$lte': prices}, 
-            'sizes-available': {'$in': sizes}})
-        return render_template("list.html", clothes=results)
+    if request.method == "POST":
+        if (request.form['sub'] == 'Display'):
+            sortBy = request.form['sortList']
+            if (sortBy == 'default'): 
+                sortedClothing =  db.clothes.find()
+            elif (sortBy == 'name'):
+                sortedClothing = db.clothes.find().sort('item-name',1)
+            elif (sortBy == 'price'):
+                sortedClothing = db.clothes.find().sort('price',1)
+            elif (sortBy == 'priceOpp'):
+                sortedClothing = db.clothes.find().sort('price',-1)
+            elif (sortBy == 'brand'):
+                sortedClothing = db.clothes.find().sort('brand',-1)
+            return render_template("list.html", clothes=sortedClothing)
+            
+        elif(request.form['sub'] == 'Filter'):
+            brands = request.form.getlist('Brand')
+            prices = request.form.getlist('price')
+            sizes = request.form.getlist('size')
+            results = db.clothes.find({
+                'brand': {'$in': brands}, 
+                'price': {'$lte': prices}, 
+                'sizes-available': {'$in': sizes}})
+            return render_template("list.html", clothes=results)
 
-    elif (request.form['sub'] == 'Search'):
-        searchBy = request.form['toSearch'].lower()
-        for doc in db.clothes.find(): 
-            name = doc.get("item-name").lower()
-            if (name.find(searchBy) != -1): 
-                db.clothes.update_one({"_id": doc.get("_id")}, {"$set":{"found":"1"}})
-            else: 
-                 db.clothes.update_one({"_id": doc.get("_id")}, {"$set":{"found":"0"}})
-        return render_template("list.html", clothes=db.clothes.find({"found": "1"}))
+        elif (request.form['sub'] == 'Search'):
+            searchBy = request.form['toSearch'].lower()
+            for doc in db.clothes.find(): 
+                name = doc.get("item-name").lower()
+                if (name.find(searchBy) != -1): 
+                    db.clothes.update_one({"_id": doc.get("_id")}, {"$set":{"found":"1"}})
+                else: 
+                    db.clothes.update_one({"_id": doc.get("_id")}, {"$set":{"found":"0"}})
+            return render_template("list.html", clothes=db.clothes.find({"found": "1"}))
+  
 
-@app.route("/cart.html")
-def handle_cart():
-    return render_template("cart.html")
+    
+@app.route("/item.html", methods = ['GET'])
+def handle_view():
+    id = request.args.get('item')
+    if (id == ""):
+        return "Oops! Looks like something went wrong."
+    else:
+        item = clothes.find({"_id": ObjectId(id)})
+        return render_template("item.html", item = item)
 
-@app.route("/item.html")
+
+@app.route("/cart.html", methods = ['GET'])
 def handle_item():
-    return render_template("item.html")
+    if (request.args.get('item') == ""):
+        displayCart = cart.find()
+        return render_template("cart.html", clothes=displayCart)
+    else: 
+        try: 
+            id = request.args.get('item')
+            found =  db.clothes.find_one({"_id" : ObjectId(id)})
+            cart.insert_one(found)
+        
+        except:
+            print("DO NOTHING")
+        finally: 
+            displayCart = cart.find()
+            return render_template("cart.html", clothes=displayCart)
 
 
-
-@app.route("/edit.html", methods=['GET','POST'])
+@app.route("/account.html", methods=['GET','POST'])
 def edit():
     if request.method == "POST":
         id  = request.values.get("_id")
         user = users.find({"_id":ObjectId(id)})
-        return render_template("edit.html", users=user, message ="Your changes are saved")
+        return render_template("account.html", users=user, message ="Your changes are saved")
     else:
-        return render_template("edit.html", message="")
+        return render_template("account.html", message="")
+ 
     
+@app.route("/payment.html")
+def handle_confirmation(): 
+    return render_template("payment.html")
+
+
 @app.route('/delete.html')
 def delete():
     id = request.values.get("_id")
     users.delete_one({'_id':ObjectId(id)})
     return redirect(url_for('login'))
 
-@app.route("/logout")
+@app.route("/logout.html")
 def logout():
+    cart.delete_many({})
     return redirect(url_for('login'))
     
 

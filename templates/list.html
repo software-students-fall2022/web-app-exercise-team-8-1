@@ -13,12 +13,16 @@
         <h1>
             Mainpage Shop
         </h1>
-        <a href="edit.html">
-            <p class="delete"><u>
+        <a href="account.html">
+            <p class="account"><u>
             Account 
         </u></p>
         </a>
-        <br>
+        <a href="cart.html">
+            <p class="cart"><u>
+           Cart 
+        </u></p>
+        </a>
         <a href="list.html">
             <p class="list"><u>
            Items List 
@@ -143,10 +147,18 @@
                     <p> ${{clothing['price']}}</p>
                     <p> Available sizes: {{clothing['sizes-available']}}</p>
                         
-                    <a href="./item.html" value =  "{{clothing['_id']}}" ><button> View item </button></a>
 
-                    <a href="./cart.html" ><button> Add to Cart </button></a>
+                    <form action= "item.html" method="GET">
+                        <input type = "hidden" id = "objID" name = "item" value ="{{clothing['_id']}}">
+                        <button type="submit"> View item</button>
+                   </form>
 
+                    <form action= "cart.html" method="GET">
+                         <input type = "hidden" id = "objID" name = "item" value ="{{clothing['_id']}}">
+                         <button type="submit"> Add to Cart</button>
+                    </form>
+
+        
                 </div>
             </div>
             {% endfor %}
