@@ -123,12 +123,22 @@ def handle_query():
             brands = request.form.getlist('Brand')
             prices = request.form.getlist('price')
             sizes = request.form.getlist('size')
-            results = db.clothes.find({
-                'brand': {'$in': brands}, 
-                'price': {'$lte': prices}, 
-                'sizes-available': {'$in': sizes}})
-            return render_template("list.html", clothes=results)
-
+            # results = db.clothes.find(
+                
+            # )
+            for doc in db.clothes.find(
+                {'brand': {'$in': brands},
+                 'price': {'$lte': prices},
+                 'sizes-available': {'$in': sizes}
+                }):
+                name = doc.get('item-name')
+                if (name.find(searchBy) != -1): 
+                    db.clothes.update_one({"_id": doc.get("_id")}, {"$set":{"found":"1"}})
+                else: 
+                    db.clothes.update_one({"_id": doc.get("_id")}, {"$set":{"found":"0"}})
+                    
+            return render_template("list.html", clothes=db.clothes.find({"found": "1"}))                
+            # return render_template("list.html", clothes=results)
         elif (request.form['sub'] == 'Search'):
             searchBy = request.form['toSearch'].lower()
             for doc in db.clothes.find(): 
@@ -168,7 +178,6 @@ def handle_item():
         finally: 
             displayCart = cart.find()
             return render_template("cart.html", clothes=displayCart)
-
 
 @app.route("/account.html", methods=['GET','POST'])
 def edit():
