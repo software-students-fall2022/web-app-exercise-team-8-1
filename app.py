@@ -196,7 +196,11 @@ def handle_query():
 @app.route("/cart.html", methods = ['GET'])
 def handle_item():
     id = request.args.get('item')
-    return id
+    found =  db.clothes.find({"_id" : ObjectId(id)})
+    cart.insert_one(found)
+    displayCart = cart.find()
+
+    return render_template("cart.html", clothes=displayCart)
 
 
 @app.route("/edit.html", methods=['GET','POST'])
