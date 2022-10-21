@@ -202,14 +202,14 @@ def handle_view():
     if (id == ""):
         return "Oops! Looks like something went wrong."
     else:
-        item = clothes.find({"_id": ObjectId(id)})
-        return render_template("item.html", item = item)
+        item = clothes.find_one({"_id": ObjectId(id)})
+        return render_template("item.html", item=item)
 
 
 @app.route("/cart.html", methods = ['GET'])
 def handle_item():
     if (request.args.get('item') == ""):
-        displayCart = cart.find()
+        displayCart = cart.find_one()
         return render_template("cart.html", clothes=displayCart)
     else: 
         try: 
