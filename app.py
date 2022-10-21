@@ -178,7 +178,16 @@ def edit():
         return render_template("account.html", users=user, message ="Your changes are saved")
     else:
         return render_template("account.html", message="")
- 
+
+@app.route("/cart.html", methods = ['Post'])
+def edit_cart():
+    try:
+        cart_id = request.form["item"]
+        cart.delete_one({"_id": ObjectId(cart_id)})
+    except:
+        return render_template("cart.html", message = "deletion failed")
+    finally:
+        return render_template("cart.html", message = "deletion success")
     
 @app.route("/payment.html")
 def handle_confirmation(): 
