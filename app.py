@@ -220,6 +220,11 @@ def edit():
     else:
         return render_template("edit.html", message="")
     
+@app.route("/confirmation.html")
+def handle_confirmation(): 
+    return render_template("confirmation.html")
+
+
 @app.route('/delete.html')
 def delete():
     id = request.values.get("_id")
