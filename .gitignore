@@ -151,3 +151,5 @@ cython_debug/
 .idea/vcs.xml
 .idea/web-app-exercise-team-8-1.iml
 .idea/workspace.xml
+.idea/.name
+.idea/inspectionProfiles/profiles_settings.xml
