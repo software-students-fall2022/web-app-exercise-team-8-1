@@ -202,6 +202,7 @@ def handle_view():
     if (id == ""):
         return "Oops! Looks like something went wrong."
     else:
+        #cart.delete_many({})
         item = clothes.find_one({"_id": ObjectId(id)})
         return render_template("item.html", item=item)
 
