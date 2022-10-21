@@ -79,9 +79,6 @@ skirt2 = {
 }
 
 
-
-
-
 user0 = {
      'email': 'test@email.com',
     'username': 'test',
@@ -196,12 +193,17 @@ def handle_query():
                 else: 
                     db.clothes.update_one({"_id": doc.get("_id")}, {"$set":{"found":"0"}})
             return render_template("list.html", clothes=db.clothes.find({"found": "1"}))
-    else:
-        item = request.form["cart"]
-        return redirect(url_for("cart.html"))
+  
 
     
-
+@app.route("/item.html", methods = ['GET'])
+def handle_view():
+    id = request.args.get('item')
+    if (id == ""):
+        return "Oops! Looks like something went wrong."
+    else:
+        item = clothes.find({"_id": ObjectId(id)})
+        return render_template("item.html", item = item)
 
 
 @app.route("/cart.html", methods = ['GET'])
@@ -217,7 +219,6 @@ def handle_item():
         
         except:
             print("DO NOTHING")
-            
         finally: 
             displayCart = cart.find()
             return render_template("cart.html", clothes=displayCart)

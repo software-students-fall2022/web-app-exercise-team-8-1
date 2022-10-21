@@ -143,11 +143,18 @@
                     <p> ${{clothing['price']}}</p>
                     <p> Available sizes: {{clothing['sizes-available']}}</p>
                         
+
+                    <form action= "item.html" method="GET">
+                        <input type = "hidden" id = "objID" name = "item" value ="{{clothing['_id']}}">
+                        <button type="submit"> View item</button>
+                   </form>
+
                     <form action= "cart.html" method="GET">
                          <input type = "hidden" id = "objID" name = "item" value ="{{clothing['_id']}}">
                          <button type="submit"> Add to Cart</button>
                     </form>
 
+        
                 </div>
             </div>
             {% endfor %}
