@@ -10,8 +10,49 @@
         <h1>
             This payment confirmation page is not finished yet
         </h1>
-        <h2 class = "web-title">
+        <h2 class = "web-title"> </h2>
+       
+        <div id = "cartInfo"> 
+            <p> Number of items: {{numItems}}</p>
+            <p> Cart total: ${{total}}0</p>
+        </div>
+
+    <form> 
+    
+        <h3> Payment information </h3>
+        <h4> Name on card </h4>
+        <label for="fname">First name:</label><br>
+        <input type="text" id="fname" name="fname" value="Jennifer"><br>
+        <label for="lname">Last name:</label><br>
+        <input type="text" id="lname" name="lname" value="Sands"><br>
+        <h4> Card information </h4>
+        <label for="card"> Number: </label><br>
+        <input type="text" id="card" name="card" value="5404 1161 6175 0679"> <br>
+        <label for="card"> Security Code: </label><br>
+        <input type="text" id="card" name="card" value="778"> <br>
+        <label for="card"> Expiraton: </label><br>
+        <input type="month" id="card" name="card" value="2024-03"> <br>
+
+        <h4> Billing Address </h4>
+        <label for="fname"> Address Line 1 </label><br>
+        <input type="text" id="house" name="house" value="123 House Street"><br>
+
+        <label for="fname"> Address Line 2 </label><br>
+        <input type="text" id="house" name="house" value="Unit D"><br>
         
+        <label for="fname"> City </label><br>
+        <input type="text" id="house" name="house" value="Boston"><br>
+        <label for="fname"> Zip </label><br>
+        <input type="text" id="house" name="house" value="02127"><br>
+
+        <label for="fname"> State </label><br>
+        <input type="text" id="house" name="house" value="Massachusetts"><br>
+
+        <button type="submit" href = "confirmation.html"> Pay ${{total}} </button>
+
+
+
+    </form>
         <script src="../static/js/script.js"></script>
     </body>
 </html>

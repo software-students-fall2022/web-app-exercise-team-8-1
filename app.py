@@ -233,9 +233,15 @@ def edit_cart():
     finally:
         return redirect(url_for('edit_cart'))
     
-@app.route("/payment.html")
+@app.route("/payment.html", methods = ['GET'])
+def handle_payment(): 
+    total = request.args.get('total')
+    numItems = request.args.get('num')
+    return render_template("payment.html", total = total, numItems = numItems)
+
+@app.route("/confirmation.html", methods = ['GET'])
 def handle_confirmation(): 
-    return render_template("payment.html")
+    return render_template("confirmation.html")
 
 
 @app.route('/delete.html')

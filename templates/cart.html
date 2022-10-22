@@ -48,12 +48,17 @@
 
             <div>
                 <p> Number of items: {{num}}</p>
-                <p> Cart total: {{total}}</p>
+                <p> Cart total: ${{total}}0</p>
             </div>
 
-        <a href="payment.html"><button class = "checkout">
-            Checkout
-        </button></a>
+            <form action= "payment.html" method="GET">
+            <button class = "checkout">
+                <input type = "hidden" id = "total" name = "total" value ="{{total}}">
+                <input type = "hidden" id = "num" name = "num" value ="{{num}}">
+                Checkout
+            </button></a>
+            </form>
+
         <script src="../static/js/script.js"></script>
     </body>
 </html>
