@@ -6,6 +6,7 @@
         align-items: center;
         justify-content: center;
         margin: 0 auto;
+        font-family: Arial, Helvetica, sans-serif;
     }
     header {
         flex: 1;
@@ -113,7 +114,13 @@
         color: #fff;
         cursor: pointer;
     }
+
+    #checkout-body {
+        background-color: black;
+        color: white;
+    }
 }
+
 
 @media screen and (min-width: 651px) {
     main {
