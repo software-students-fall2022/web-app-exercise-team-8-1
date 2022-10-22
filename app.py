@@ -239,7 +239,7 @@ def handle_payment():
     numItems = request.args.get('num')
     return render_template("payment.html", total = total, numItems = numItems)
 
-@app.route("/confirmation.html", methods = ['GET'])
+@app.route("/confirmation.html")
 def handle_confirmation(): 
     return render_template("confirmation.html")
 
