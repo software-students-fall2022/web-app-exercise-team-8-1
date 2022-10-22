@@ -46,18 +46,24 @@
             </div>
             {% endfor %}
 
-            <div>
-                <p> Number of items: {{num}}</p>
-                <p> Cart total: ${{total}}0</p>
+            <div id = "cartSummary">
+                <p> <b> Number of items:</b> {{num}}</p>
+                <p>  <b>Cart total: </b>${{total}}0</p>
             </div>
 
+
+            {% if num != 0 %}
+            {% block content %}
             <form action= "payment.html" method="GET">
-            <button class = "checkout">
+            <button id = "checkout">
                 <input type = "hidden" id = "total" name = "total" value ="{{total}}">
                 <input type = "hidden" id = "num" name = "num" value ="{{num}}">
                 Checkout
             </button></a>
             </form>
+            {%endblock content%}
+            {% endif %}
+
 
         <script src="../static/js/script.js"></script>
     </body>

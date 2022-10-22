@@ -36,7 +36,7 @@
         <p> from {{item['brand']}}</p>
         <p> ${{item['price']}}</p>
         <p> Available sizes: {{item['sizes-available']}}</p>
-
+        
         <form action= "cart.html" method="GET">
              <input type = "hidden" id = "objID" name = "item" value ="{{item['_id']}}">
              <button type="submit"> Add to Cart</button>
