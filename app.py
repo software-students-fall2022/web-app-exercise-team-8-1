@@ -7,7 +7,6 @@ from flask import Flask, render_template, request, redirect, abort, url_for, mak
 import logging # print function
 import re
 
-
 # following set up from readme: https://github.com/nyu-software-engineering/flask-pymongo-web-app-example
 app=Flask(__name__)
 
@@ -180,43 +179,40 @@ def handle_item():
             return render_template("cart.html", clothes=displayCart)
 
 
-@app.route('/account.html')
-def edit(post_id):
-    doc = db.users.find_one({"_id": ObjectId(post_id)})
-    return render_template('account.html', doc=doc) # render the edit template
+@app.route('/account.html', methods=['GET','POST'])
+def edit():
+    if request.method == 'POST':
+        user_email = request.form["email"]
+        user_name = request.form["username"]
+        user_password = request.form["password"]
+        #input validation
+        valid_email = "([A-Z]|[a-z]|[0-9])+@([a-z]|[A-Z])+\.(([a-z]){2}|([a-z]){3})"
+        validation = re.match(valid_email, user_email)
+        valid = False
+        doc = {}
 
+        if len(user_email) != 0 and validation is not None:
+            doc["email"] = user_email
+            valid = True
+        if len(user_name) != 0:
+            doc["username"] = user_name
+            valid = True
+        if len(user_password) != 0:
+            doc["password"] = user_password
+            valid = True
 
-@app.route('/account.html', methods=['POST'])
-def edit_post(post_id):
+        if not valid:
+            return render_template('account.html', message="Not valid update!")
+        #end of input validation
+        
+        db.users.update_one({"_id": doc.get("_id")},{ "$set": doc })
+        return render_template("account.html")
+    
+    else:
+        id = request.args.get('users')
+        doc = db.users.find_one({"_id": ObjectId(id)})
+        return render_template('account.html', doc=doc) # render the account template
 
-    user_email = request.form["email"]
-    user_name = request.form["username"]
-    user_password = request.form["password"]
-    #input validation
-    valid_email = "([A-Z]|[a-z]|[0-9])+@([a-z]|[A-Z])+\.(([a-z]){2}|([a-z]){3})"
-    validation = re.match(valid_email, user_email)
-    valid = False
-    doc = {}
-
-    if len(user_email) != 0 and validation is not None:
-        doc["email"] = user_email
-        valid = True
-    if len(user_name) != 0:
-        doc["username"] = user_name
-        valid = True
-    if len(user_password) != 0:
-        doc["password"] = user_password
-        valid = True
-
-    if not valid:
-        return render_template('account.html', message="Not valid update!")
-    #end of input validation
-    db.users.update_one(
-        {"_id": ObjectId(post_id)},
-        { "$set": doc }
-    )
-
-    return redirect(url_for('handle_query'), messages = {"Your changes are successfully saved"})
 
 @app.route("/cart.html", methods = ['Post'])
 def edit_cart():
