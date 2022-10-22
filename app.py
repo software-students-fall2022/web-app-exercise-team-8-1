@@ -192,22 +192,25 @@ def edit_post(post_id):
     user_email = request.form["email"]
     user_name = request.form["username"]
     user_password = request.form["password"]
-
+    #input validation
     valid_email = "([A-Z]|[a-z]|[0-9])+@([a-z]|[A-Z])+\.(([a-z]){2}|([a-z]){3})"
     validation = re.match(valid_email, user_email)
-    if len(user_email) == 0 or validation is None:
-        return render_template("account.html", message="Please enter valid email")
-    if len(user_name) == 0:
-        return render_template("account.html", message="Please enter valid username")
-    if len(user_password) == 0:
-        return render_template("account.html", message="Please enter valid password")
-    
-    doc = {
-        "email": user_email, 
-        "username": user_name,
-        "password": user_password 
-    }
+    valid = False
+    doc = {}
 
+    if len(user_email) != 0 and validation is not None:
+        doc["email"] = user_email
+        valid = True
+    if len(user_name) != 0:
+        doc["username"] = user_name
+        valid = True
+    if len(user_password) != 0:
+        doc["password"] = user_password
+        valid = True
+
+    if not valid:
+        return render_template('account.html', message="Not valid update!")
+    #end of input validation
     db.users.update_one(
         {"_id": ObjectId(post_id)},
         { "$set": doc }
