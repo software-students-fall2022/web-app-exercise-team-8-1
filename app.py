@@ -36,7 +36,6 @@ user0 = {
 #clothes.insert_many([item1, item2, item3, item4])
 #clothes.insert_one(item4)
 
-# can't test, having errors with connecting to database the correct way -Eduarda
 @app.route("/list.html") 
 def shop():
     #print(pymongo.version)
@@ -73,7 +72,10 @@ def signup():
     else:
         return render_template("signup.html")
 
-
+# ---- TEST INFO 
+# email : test@email.com
+# username : test 
+# pass : 1234
 @app.route("/")
 @app.route("/login.html", methods=["POST", "GET"])
 def login():
@@ -176,7 +178,14 @@ def handle_item():
             print("DO NOTHING")
         finally: 
             displayCart = cart.find()
-            return render_template("cart.html", clothes=displayCart)
+            total = 0
+            num = 0
+
+            for item in displayCart:
+                total += float(item["price"])
+                num = num+1
+
+            return render_template("cart.html", clothes=cart.find(), total = total, num = num)
 
 
 @app.route('/account.html', methods=['GET','POST'])

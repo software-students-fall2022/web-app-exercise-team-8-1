@@ -17,6 +17,7 @@
             Account 
         </u></p>
         </a>
+        
         <a href="list.html">
             <p class="list"><u>
            Catalogue
@@ -41,15 +42,14 @@
                     <p> {{clothing['item-name']}} </p>
                     <p> from {{clothing['brand']}}</p>
                     <p> ${{clothing['price']}}</p>
-
-                    <form action= "cart.html" method="Post">
-                        <input type = "hidden" id = "objID" name = "item" value ="{{clothing['_id']}}">
-                        <button type="submit"> Delete from Cart</button>
-                   </form>
-                   <p>{{message}}</p>
                 </div>
             </div>
             {% endfor %}
+
+            <div>
+                <p> Number of items: {{num}}</p>
+                <p> Cart total: {{total}}</p>
+            </div>
 
         <a href="payment.html"><button class = "checkout">
             Checkout
