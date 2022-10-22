@@ -179,27 +179,41 @@ def handle_item():
             displayCart = cart.find()
             return render_template("cart.html", clothes=displayCart)
 
-@app.route("/account.html", methods=['GET','POST'])
-def edit():
-    if request.method == "POST":
-        id  = request.values.get("_id")
-        user = users.find({"_id":ObjectId(id)})
 
-        user_email = request.form["email"]
-        user_name = request.form["username"]
-        user_password = request.form["password"]
-        valid_email = "([A-Z]|[a-z]|[0-9])+@([a-z]|[A-Z])+\.(([a-z]){2}|([a-z]){3})"
-        validation = re.match(valid_email, user_email)
-        if len(user_email) == 0 or validation is None:
-            return render_template("account.html", message="Please enter valid email")
-        if len(user_name) == 0:
-            return render_template("account.html", message="Please enter valid username")
-        if len(user_password) == 0:
-            return render_template("account.html", message="Please enter valid password")
+@app.route('/account.html')
+def edit(post_id):
+    doc = db.users.find_one({"_id": ObjectId(post_id)})
+    return render_template('account.html', doc=doc) # render the edit template
 
-        return render_template("account.html", users=user, message ="Your changes are saved")
-    else:
-        return render_template("account.html", message="")
+
+@app.route('/account.html', methods=['POST'])
+def edit_post(post_id):
+
+    user_email = request.form["email"]
+    user_name = request.form["username"]
+    user_password = request.form["password"]
+
+    valid_email = "([A-Z]|[a-z]|[0-9])+@([a-z]|[A-Z])+\.(([a-z]){2}|([a-z]){3})"
+    validation = re.match(valid_email, user_email)
+    if len(user_email) == 0 or validation is None:
+        return render_template("account.html", message="Please enter valid email")
+    if len(user_name) == 0:
+        return render_template("account.html", message="Please enter valid username")
+    if len(user_password) == 0:
+        return render_template("account.html", message="Please enter valid password")
+    
+    doc = {
+        "email": user_email, 
+        "username": user_name,
+        "password": user_password 
+    }
+
+    db.users.update_one(
+        {"_id": ObjectId(post_id)},
+        { "$set": doc }
+    )
+
+    return redirect(url_for('handle_query'), messages = {"Your changes are successfully saved"})
 
 @app.route("/cart.html", methods = ['Post'])
 def edit_cart():

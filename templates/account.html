@@ -16,16 +16,15 @@
         <h2 class = "web-title">
             APPNAME
         </h2>
-
-        <form method = "POST" action="/account.html">
+        <form method="POST" action="{{ url_for('edit_post', post_id = doc._id) }}">
             <label for="email"><b>Email</b></label>
-            <input class = "input-bar" type = "text" placeholder = "Email" name = "email">
+            <input class = "input-bar" id="email" type = "text" placeholder = "Email" name = "email" value="{{doc.email}}">
             
             <label for="username"><b>Username</b></label>
-            <input class = "input-bar" type = "text" placeholder = "Username" name = "username">
+            <input class = "input-bar" id="email" type = "text" placeholder = "Username" name = "username" value="{{doc.username}}">
 
             <label for="password"><b>Password</b></label>
-            <input class = "input-bar" type = "text" placeholder = "Password" name = "password">
+            <input class = "input-bar" id="email" type = "text" placeholder = "Password" name = "password" value="{{doc.password}}">
 
             <p class = "error">{{message}}</p>
 
