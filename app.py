@@ -191,6 +191,16 @@ def handle_item():
 @app.route('/account.html', methods=['GET','POST'])
 def edit():
     if request.method == 'POST':
+        current_email = request.form["current_email"]
+        current_password = request.form["current_password"]
+        validate_current = users.find_one({'email': current_email})
+        if validate_current is None:
+            return render_template("account.html", message = "This account does not exist")
+        if validate_current['password'] != current_password:
+            return render_template("account.html", message = "Failed to validate password")
+
+        user_id = validate_current['_id']
+
         user_email = request.form["email"]
         user_name = request.form["username"]
         user_password = request.form["password"]
@@ -214,7 +224,7 @@ def edit():
             return render_template('account.html', message="Not valid update!")
         #end of input validation
         
-        db.users.update_one({"_id": doc.get("_id")},{ "$set": doc })
+        db.users.update_one({"_id": user_id},{ "$set": doc })
         return render_template("account.html")
     
     else:

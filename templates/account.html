@@ -17,14 +17,22 @@
             APPNAME
         </h2>
         <form method="POST" action="/account.html">
+            <p>Please validate account information</p>
+            <label for="current_email"><b>Account Email</b></label>
+            <input class = "input-bar" id="current_email" type = "text" placeholder = "Email" name = "current_email">
+
+            <label for="current_password"><b>Account Password</b></label>
+            <input class = "input-bar" id="current_password" type = "text" placeholder = "Email" name = "current_password">
+
+            <p>Input field to change</p>
             <label for="email"><b>Email</b></label>
-            <input class = "input-bar" id="email" type = "text" placeholder = "Email" name = "email" value="email">
+            <input class = "input-bar" id="email" type = "text" placeholder = "Email" name = "email">
             
             <label for="username"><b>Username</b></label>
-            <input class = "input-bar" id="username" type = "text" placeholder = "Username" name = "username" value="username">
+            <input class = "input-bar" id="username" type = "text" placeholder = "Username" name = "username">
 
             <label for="password"><b>Password</b></label>
-            <input class = "input-bar" id="password" type = "text" placeholder = "Password" name = "password" value="password">
+            <input class = "input-bar" id="password" type = "text" placeholder = "Password" name = "password">
 
             <p class = "error">{{message}}</p>
 
