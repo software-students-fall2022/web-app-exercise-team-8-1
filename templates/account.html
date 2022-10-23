@@ -4,7 +4,7 @@
         <title>
             Account settings
         </title>
-        <link rel="stylesheet" , href="../static/css/basic.css">
+        <link rel = "stylesheet" type ="text/css" href = "../static/css/basic.css"/>
     </head>
 
     <main> 
@@ -16,16 +16,23 @@
         <h2 class = "web-title">
             APPNAME
         </h2>
+        <form method="POST" action="/account.html">
+            <p>Please validate account information</p>
+            <label for="current_email"><b>Account Email</b></label>
+            <input class = "input-bar" id="current_email" type = "text" placeholder = "Email" name = "current_email">
 
-        <form method = "POST" action="/account.html">
+            <label for="current_password"><b>Account Password</b></label>
+            <input class = "input-bar" id="current_password" type = "text" placeholder = "Email" name = "current_password">
+
+            <p>Input field to change</p>
             <label for="email"><b>Email</b></label>
-            <input class = "input-bar" type = "text" placeholder = "Email" name = "email">
+            <input class = "input-bar" id="email" type = "text" placeholder = "Email" name = "email">
             
             <label for="username"><b>Username</b></label>
-            <input class = "input-bar" type = "text" placeholder = "Username" name = "username">
+            <input class = "input-bar" id="username" type = "text" placeholder = "Username" name = "username">
 
             <label for="password"><b>Password</b></label>
-            <input class = "input-bar" type = "text" placeholder = "Password" name = "password">
+            <input class = "input-bar" id="password" type = "text" placeholder = "Password" name = "password">
 
             <p class = "error">{{message}}</p>
 
