@@ -22,7 +22,7 @@ users = db["users"]
 clothes = db["clothes"]
 cart = db["cart"]
 
-currentUser = None
+# currentUser = None
 
 user0 = {
      'email': 'test@email.com',
@@ -66,7 +66,6 @@ def signup():
                 'password': user_password
             }
             users.insert_one(new_user)
-            currentUser = new_user
             return redirect(url_for("handle_query"))
         else:
             return render_template("login.html", message="User account already exists")
@@ -95,7 +94,6 @@ def login():
         x = users.find_one({'email': user_email})
         if x is not None:
             if x['password'] == user_password:
-                currentUser = x
                 return redirect(url_for("handle_query"))
             else:
                 return render_template("login.html", message="Wrong Password")
