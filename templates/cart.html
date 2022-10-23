@@ -82,13 +82,12 @@
             </div>
             {% endfor %}
 
+            {% block content %}
+            {% if num != 0 %} 
             <div id="cartSummary">
                 <p> <b> Number of items:</b> {{num}}</p>
                 <p> <b>Cart total: </b>${{total}}0</p>
             </div>
-
-
-            {% if num != 0 %} {% block content %}
             <form action="payment.html" method="GET">
                 <button id="checkout">
                     <input type = "hidden" id = "total" name = "total" value ="{{total}}">
@@ -96,7 +95,13 @@
                     Checkout
                 </button></a>
             </form>
-            {%endblock content%} {% endif %}
+            {%else%}
+            <div id = cartEmpty> 
+                <h3>  Your cart is empty! </h3>
+            </div>
+            
+            {% endif %}
+            {%endblock content%} 
     </main>
     <footer>
         <div class="footer_div">
