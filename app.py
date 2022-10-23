@@ -130,7 +130,7 @@ def handle_query():
                  'sizes-available': {'$in': sizes}
                 }
             )
-            return "<h1>Results" + results.brand+"</h1>"
+            # return "<h1>Results" + str(results)+"</h1>"
             # return "<h5>brands: " + str(brands) + " prices: " + str(prices) + " sizes: " + str(sizes)+"</h5>"
             # for doc in db.clothes.find(
             #     {'brand': {'$in': brands},
