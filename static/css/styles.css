@@ -279,6 +279,34 @@
         padding: 0;
         border: none;
     }
+
+    .error {
+        color: red;
+    }
+
+    #a-pay {
+        color:white;
+        text-decoration: none;
+    }
+
+    #pay-button {
+        width: 70%;
+        min-height: 30px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #payment-form > * {
+       margin-bottom: 15px;
+       width: 100%;
+       min-height: 30px;
+    }
+
+
+
+
+
+    
 }
 
 

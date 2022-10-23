@@ -260,6 +260,7 @@ def handle_payment():
 
 @app.route("/confirmation.html")
 def handle_confirmation(): 
+    cart.delete_many({})
     return render_template("confirmation.html")
 
 
