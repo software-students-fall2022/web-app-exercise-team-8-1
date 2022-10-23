@@ -80,6 +80,7 @@ def signup():
 @app.route("/")
 @app.route("/login.html", methods=["POST", "GET"])
 def login():
+    cart.delete_many({})
     if request.method == "POST":
         user_email = request.form["email"]
         user_password = request.form["password"]
@@ -272,7 +273,6 @@ def delete():
 
 @app.route("/logout.html")
 def logout():
-    cart.delete_many({})
     return redirect(url_for('login'))
     
 
