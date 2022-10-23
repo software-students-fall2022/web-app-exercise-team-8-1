@@ -5,7 +5,7 @@ A little exercise to build a web application following an agile development proc
 
 ## Product vision statement
 
-An app for people to purchase clothes in an easy way.
+An simple clothing app to purchase Women's clothing. 
 
 ## User stories
 
@@ -25,4 +25,4 @@ As a user, I want to be able to select a size for a shirt so I can purchase a sh
 
 ## Task boards
 
-See instructions. Delete this line and place a link to the task boards here.
+https://github.com/orgs/software-students-fall2022/projects/14/views/2
