@@ -1,4 +1,7 @@
-@media screen and (max-width: 650px) {
+@media screen
+/* and (max-width: 650px)*/
+
+{
     body {
         display: flex;
         flex-direction: column;
@@ -227,7 +230,8 @@
     }
 }
 
-@media screen and (min-width: 651px) {
+
+/* @media screen and (min-width: 651px) {
     body {
         font-family: Arial, Helvetica, sans-serif;
         width: 70%;
@@ -258,4 +262,4 @@
     .web-title {
         text-align: center;
     }
-}
+} */
