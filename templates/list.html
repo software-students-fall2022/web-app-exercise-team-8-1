@@ -23,7 +23,16 @@
             </a>
             <a href="list.html">
                 <p class="list">
-                    Catalogue</p>
+                    Catalogue
+                </p>
+            </a>
+            <button class="button_home">
+                <a href="login.html" id="changetowhite">
+                    <p class="logout">
+                        <u> Logout </u>
+                    </p>
+                </a>
+            </button>
         </div>
         <div class="home_button hide" id="home_button">
             <a>
@@ -155,28 +164,34 @@
             </form>
             </section>
             {%for clothing in clothes%}
-            <div>
                 <div class="product">
                     <img src="{{clothing['image']}}" height=400px>
-                    <p> {{clothing['item-name']}} </p>
-                    <p> from {{clothing['brand']}}</p>
-                    <p> ${{clothing['price']}}</p>
-                    <p> Available sizes: {{clothing['sizes-available']}}</p>
+                    <div class="product_div1">
+                        <!-- <div class="product_div2"> -->
+                            <p> {{clothing['item-name']}} </p>
+                        <!-- </div> -->
+                        <!-- <div class="item_details product_div2"> -->
+                            <p> from {{clothing['brand']}}</p>
+                            <p> ${{clothing['price']}}</p>
+                            <p> Available sizes: {{clothing['sizes-available']}}</p>
+                        <!-- </div> -->
+                    </div>
                         
 
-                    <form action= "item.html" method="GET">
-                        <input type = "hidden" id = "objID" name = "item" value ="{{clothing['_id']}}">
-                        <button type="submit"> View item</button>
-                   </form>
-
-                    <form action= "cart.html" method="GET">
-                         <input type = "hidden" id = "objID" name = "item" value ="{{clothing['_id']}}">
-                         <button type="submit"> Add to Cart</button>
-                    </form>
+                    <div class="buttons_item">
+                        <form action= "item.html" method="GET">
+                            <input type = "hidden" id = "objID" name = "item" value ="{{clothing['_id']}}">
+                            <button type="submit"> View item</button>
+                       </form>
+    
+                        <form action= "cart.html" method="GET">
+                             <input type = "hidden" id = "objID" name = "item" value ="{{clothing['_id']}}">
+                             <button type="submit"> Add to Cart</button>
+                        </form>
+                    </div>
 
         
                 </div>
-            </div>
             {% endfor %}
         </section>
     </main>

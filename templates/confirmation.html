@@ -1,67 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Confirmation</title>
+        <link rel="stylesheet" , href="../static/css/styles.css" />
+        <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        Confirmation
-    </title>
-    <link rel="stylesheet" , href="../static/css/styles.css">
-    <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
-</head>
-
-<body>
-    <header>
-        <div class="home_menu" id="home_menu">
-            <a href="account.html">
-                <p class="account">
-                    Account
-                </p>
-            </a>
-            <a href="cart.html">
-                <p class="cart">
-                    Cart
-                </p>
-            </a>
-            <a href="list.html">
-                <p class="list">
-                    Catalogue</p>
-        </div>
-        <div class="home_button hide" id="home_button">
-            <a>
-                <iconify-icon icon="charm:menu-hamburger"></iconify-icon>
-            </a>
-        </div>
-        <script>
-            var x = document.getElementById("home_button");
-            x.addEventListener("click", function() {
-                var y = document.getElementById("home_menu");
-                if (y.className === "home_menu") {
-                    y.className += " show";
-                    y.style.display = "flex";
-                } else {
-                    y.className = "home_menu";
-                    y.style.display = "none";
-                }
-            });
-        </script>
-        <h1 class="title hide">
-            Confirmation
-        </h1>
-    </header>
-    <main>
-        <div id="checkout-page">
-            <h1> Thank you for your purchase! </h1>
-            <h2> You should recieve a confirmation email shortly.</h2>
-        </div>
-    </main>
-    <footer>
-        <div class="footer_div">
-            <p>© 2020 mainpage Shop</p>
-        </div>
-    </footer>
-</body>
-
+    <body>
+        <header>
+            <div class="home_menu" id="home_menu">
+                <a href="account.html">
+                    <p class="account">Account</p>
+                </a>
+                <a href="cart.html">
+                    <p class="cart">Cart</p>
+                </a>
+                <a href="list.html">
+                    <p class="list">Catalogue</p>
+                </a>
+                <button class="button_home">
+                    <a href="login.html" id="changetowhite">
+                        <p class="logout">
+                            Logout
+                        </p>
+                    </a>
+                </button>
+            </div>
+            <div class="home_button hide" id="home_button">
+                <a>
+                    <iconify-icon icon="charm:menu-hamburger"></iconify-icon>
+                </a>
+            </div>
+            <script>
+                var x = document.getElementById("home_button");
+                x.addEventListener("click", function () {
+                    var y = document.getElementById("home_menu");
+                    if (y.className === "home_menu") {
+                        y.className += " show";
+                        y.style.display = "flex";
+                    } else {
+                        y.className = "home_menu";
+                        y.style.display = "none";
+                    }
+                });
+            </script>
+            <h1 class="title hide">Confirmation</h1>
+        </header>
+        <main>
+            <div id="checkout-page">
+                <h1>Thank you for your purchase!</h1>
+                <h2>You should recieve a confirmation email shortly.</h2>
+            </div>
+        </main>
+        <footer>
+            <div class="footer_div">
+                <p>© 2020 mainpage Shop</p>
+            </div>
+        </footer>
+    </body>
 </html>

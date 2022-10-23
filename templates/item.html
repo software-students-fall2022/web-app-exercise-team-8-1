@@ -23,7 +23,16 @@
             </a>
             <a href="list.html">
                 <p class="list">
-                    Catalogue</p>
+                    Catalogue
+                </p>
+            </a>
+            <button class="button_home">
+                <a href="login.html" id="changetowhite">
+                    <p class="logout">
+                        <u> Logout </u>
+                    </p>
+                </a>
+            </button>
         </div>
         <div class="home_button hide" id="home_button">
             <a>
@@ -49,7 +58,7 @@
     </header>
     <main>
 
-        <div class="product">
+        <div class="product_itempage">
             <h2> {{item['item-name']}} </h2>
             <img src="{{item['image']}}" height=400px>
             <p> from {{item['brand']}}</p>
