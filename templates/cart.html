@@ -74,6 +74,10 @@
                     <p> {{clothing['item-name']}} </p>
                     <p> from {{clothing['brand']}}</p>
                     <p> ${{clothing['price']}}</p>
+                    <form action= "cart.html" method="POST" name="cart">
+                        <input type = "hidden" id = "objID" name = "item" value ="{{clothing['_id']}}">
+                        <button type="submit"> - </button>
+                   </form>
                 </div>
             </div>
             {% endfor %}

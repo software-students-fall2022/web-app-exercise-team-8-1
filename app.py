@@ -25,9 +25,9 @@ cart = db["cart"]
 # currentUser = None
 
 user0 = {
-     'email': 'test@email.com',
+    'email': 'test@email.com',
     'username': 'test',
-     'password': 'test123'    
+    'password': 'test123'    
 }
 
 #clothes.delete_one({"item-name" :  "Urban Revivo denim shortsin mid wash denim"})
