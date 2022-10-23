@@ -7,11 +7,13 @@ from flask import Flask, render_template, request, redirect, abort, url_for, mak
 import logging # print function
 import re
 
+#temp
+import json
 
 # following set up from readme: https://github.com/nyu-software-engineering/flask-pymongo-web-app-example
 app=Flask(__name__)
 
-# PASTE CLUSTER FROM DISC HERE - it should work !!!!
+# PASTE CLUSTER FROM DISC HERE - i1t should work !!!!
 cluster = MongoClient("mongodb+srv://team8:clothesclothesclothes@cluster0.5fub1c4.mongodb.net/?retryWrites=true&w=majority")
 
 db = cluster["clothes-app"]
@@ -123,21 +125,26 @@ def handle_query():
             brands = request.form.getlist('Brand')
             prices = request.form.getlist('price')
             sizes = request.form.getlist('size')
-            # results = db.clothes.find(
-                
-            # )
-            for doc in db.clothes.find(
+            results = db.clothes.find(
                 {'brand': {'$in': brands},
                  'price': {'$lte': prices},
                  'sizes-available': {'$in': sizes}
-                }):
-                name = doc.get('item-name')
-                if (name.find(searchBy) != -1): 
-                    db.clothes.update_one({"_id": doc.get("_id")}, {"$set":{"found":"1"}})
-                else: 
-                    db.clothes.update_one({"_id": doc.get("_id")}, {"$set":{"found":"0"}})
+                }
+            )
+            return "<h1>Results" + results.brand+"</h1>"
+            # return "<h5>brands: " + str(brands) + " prices: " + str(prices) + " sizes: " + str(sizes)+"</h5>"
+            # for doc in db.clothes.find(
+            #     {'brand': {'$in': brands},
+            #      'price': {'$lte': prices},
+            #      'sizes-available': {'$in': sizes}
+            #     }):
+            #     name = doc.get('item-name')
+            #     if (name.find(searchBy) != -1): 
+            #         db.clothes.update_one({"_id": doc.get("_id")}, {"$set":{"found":"1"}})
+            #     else: 
+            #         db.clothes.update_one({"_id": doc.get("_id")}, {"$set":{"found":"0"}})
                     
-            return render_template("list.html", clothes=db.clothes.find({"found": "1"}))                
+            # return render_template("list.html", clothes=db.clothes.find({"found": "1"}))                
             # return render_template("list.html", clothes=results)
         elif (request.form['sub'] == 'Search'):
             searchBy = request.form['toSearch'].lower()
