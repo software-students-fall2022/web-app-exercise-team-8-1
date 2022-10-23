@@ -1,42 +1,81 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>
-            Account settings
-        </title>
-        <link rel = "stylesheet" type ="text/css" href = "../static/css/basic.css"/>
-    </head>
 
-    <main> 
-            
-    <body>
-        <h1>
-            This  page is not finished yet
+<head>
+    <title>
+        Account settings
+    </title>
+    <link rel="stylesheet" , href="../static/css/styles.css">
+    <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="home_menu" id="home_menu">
+            <a href="account.html">
+                <p class="account">
+                    Account
+                </p>
+            </a>
+            <a href="cart.html">
+                <p class="cart">
+                    Cart
+                </p>
+            </a>
+            <a href="list.html">
+                <p class="list">
+                    Catalogue</p>
+        </div>
+        <div class="home_button hide" id="home_button">
+            <a>
+                <iconify-icon icon="charm:menu-hamburger"></iconify-icon>
+            </a>
+        </div>
+        <script>
+            var x = document.getElementById("home_button");
+            x.addEventListener("click", function() {
+                var y = document.getElementById("home_menu");
+                if (y.className === "home_menu") {
+                    y.className += " show";
+                    y.style.display = "flex";
+                } else {
+                    y.className = "home_menu";
+                    y.style.display = "none";
+                }
+            });
+        </script>
+        <h1 class="title hide">
+            Account Settings
         </h1>
-        <h2 class = "web-title">
+    </header>
+    <main>
+        <h1>
+            This page is not finished yet
+        </h1>
+        <h2 class="web-title">
             APPNAME
         </h2>
         <form method="POST" action="/account.html">
             <p>Please validate account information</p>
             <label for="current_email"><b>Account Email</b></label>
-            <input class = "input-bar" id="current_email" type = "text" placeholder = "Email" name = "current_email">
+            <input class="input-bar" id="current_email" type="text" placeholder="Email" name="current_email">
 
             <label for="current_password"><b>Account Password</b></label>
-            <input class = "input-bar" id="current_password" type = "text" placeholder = "Email" name = "current_password">
+            <input class="input-bar" id="current_password" type="text" placeholder="Email" name="current_password">
 
             <p>Input field to change</p>
             <label for="email"><b>Email</b></label>
-            <input class = "input-bar" id="email" type = "text" placeholder = "Email" name = "email">
-            
+            <input class="input-bar" id="email" type="text" placeholder="Email" name="email">
+
             <label for="username"><b>Username</b></label>
-            <input class = "input-bar" id="username" type = "text" placeholder = "Username" name = "username">
+            <input class="input-bar" id="username" type="text" placeholder="Username" name="username">
 
             <label for="password"><b>Password</b></label>
-            <input class = "input-bar" id="password" type = "text" placeholder = "Password" name = "password">
+            <input class="input-bar" id="password" type="text" placeholder="Password" name="password">
 
-            <p class = "error">{{message}}</p>
+            <p class="error">{{message}}</p>
 
-            <button class = "save-sign-button" type = "submit">
+            <button class="save-sign-button" type="submit">
                 Save
             </button>
         </form>
@@ -50,5 +89,11 @@
         </u></p></a> </button>
         <script src="../static/js/script.js"></script>
     </main>
-    </body>
+    <footer>
+        <div class="footer_div">
+            <p>© 2020 mainpage Shop</p>
+        </div>
+    </footer>
+</body>
+
 </html>
