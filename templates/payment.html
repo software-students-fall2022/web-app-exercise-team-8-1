@@ -59,12 +59,12 @@
     </header>
 
     <main>
-        <div id="cartInfo">
+        <div id="cartSummary">
             <p> Number of items: {{numItems}}</p>
             <p> Cart total: ${{total}}0</p>
         </div>
 
-        <form>
+        <form id = "payment-form">
 
             <h3> Payment information </h3>
             <h4> Name on card </h4>
@@ -95,7 +95,7 @@
             <label for="fname"> State </label><br>
             <input type="text" id="house" name="house" value="Massachusetts"><br>
 
-            <button><a href="confirmation.html"> Pay </a>  </button>
+            <button id = "pay-button"><a href="confirmation.html" id ="a-pay"> Pay ${{total}}0 </a>  </button>
 
         </form>
     </main>
