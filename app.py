@@ -22,6 +22,7 @@ users = db["users"]
 clothes = db["clothes"]
 cart = db["cart"]
 
+currentUser = None
 
 user0 = {
      'email': 'test@email.com',
@@ -65,7 +66,7 @@ def signup():
                 'password': user_password
             }
             users.insert_one(new_user)
-
+            currentUser = new_user
             return redirect(url_for("handle_query"))
         else:
             return render_template("login.html", message="User account already exists")
@@ -94,6 +95,7 @@ def login():
         x = users.find_one({'email': user_email})
         if x is not None:
             if x['password'] == user_password:
+                currentUser = x
                 return redirect(url_for("handle_query"))
             else:
                 return render_template("login.html", message="Wrong Password")
@@ -131,7 +133,8 @@ def handle_query():
                 }
             )
             return "<h1>Results" + str(results)+"</h1>"
-            # return "<h5>brands: " + str(brands) + " prices: " + str(prices) + " sizes: " + str(sizes)+"</h5>"
+            ''' 
+            return "<h5>brands: " + str(brands) + " prices: " + str(prices) + " sizes: " + str(sizes)+"</h5>"
             # for doc in db.clothes.find(
             #     {'brand': {'$in': brands},
             #      'price': {'$lte': prices},
@@ -145,6 +148,7 @@ def handle_query():
                     
             # return render_template("list.html", clothes=db.clothes.find({"found": "1"}))                
             # return render_template("list.html", clothes=results)
+            '''
         elif (request.form['sub'] == 'Search'):
             searchBy = request.form['toSearch'].lower()
             for doc in db.clothes.find(): 
