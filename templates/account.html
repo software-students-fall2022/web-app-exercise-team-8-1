@@ -66,7 +66,7 @@
         <h2 class="web-title">
             APPNAME
         </h2>
-        <form method="POST" action="/account.html">
+        <form name="accountDetails" method="POST" action="/account.html">
             <p>Please validate account information</p>
             <label for="current_email"><b>Account Email</b></label>
             <input class="input-bar" id="current_email" type="text" placeholder="Email" name="current_email">
@@ -90,10 +90,12 @@
                 Save
             </button>
         </form>
+        <form action="delete" method="POST">
+            <label for="current_email"><b>Account Email to delete</b></label>
+            <input class="input-bar" id="current_email" type="text" placeholder="Email" name="current_email">
+            <button> <p class = "delete">Delete Account</p></button>
+        </form>
 
-        <button> <a id="changetowhite" href="login.html"><p class = "delete"><u>
-            Delete Account
-        </u></p></a> </button>
 
         <button> <a id="changetowhite" href="login.html"><p class = "logout"><u>
             Logout 

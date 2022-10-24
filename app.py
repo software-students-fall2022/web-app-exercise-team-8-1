@@ -3,13 +3,20 @@ from pydoc import doc
 import pymongo
 from pymongo import MongoClient
 from bson.objectid import ObjectId
-from flask import Flask, render_template, request, redirect, abort, url_for, make_response
+from flask import Flask, render_template, request, redirect, session, abort, url_for, make_response
+from flask_session import Session
 import logging # print function
 import re
 
 # following set up from readme: https://github.com/nyu-software-engineering/flask-pymongo-web-app-example
 app=Flask(__name__)
 
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
+
+# app.secret_key = "1234"
+# session['currentUserId'] = ""
 # PASTE CLUSTER FROM DISC HERE - i1t should work !!!!
 cluster = MongoClient("mongodb+srv://team8:clothesclothesclothes@cluster0.5fub1c4.mongodb.net/?retryWrites=true&w=majority")
 
@@ -21,8 +28,6 @@ clothing_collection = db["all-clothes"]
 users = db["users"]
 clothes = db["clothes"]
 cart = db["cart"]
-
-# currentUser = None
 
 user0 = {
     'email': 'test@email.com',
@@ -36,7 +41,6 @@ user0 = {
 # clothes added
 #clothes.insert_many([item1, item2, item3, item4])
 #clothes.insert_one(item4)
-
 @app.route("/list.html") 
 def shop():
     #print(pymongo.version)
@@ -65,6 +69,7 @@ def signup():
                 'username': user_name,
                 'password': user_password
             }
+            # session.currentUserId = new_user['_id']
             users.insert_one(new_user)
             return redirect(url_for("handle_query"))
         else:
@@ -95,6 +100,7 @@ def login():
         x = users.find_one({'email': user_email})
         if x is not None:
             if x['password'] == user_password:
+                # session.currentUserId = x['_id']
                 return redirect(url_for("handle_query"))
             else:
                 return render_template("login.html", message="Wrong Password")
@@ -263,16 +269,22 @@ def handle_confirmation():
     return render_template("confirmation.html")
 
 
-@app.route('/delete.html')
+@app.route('/delete', methods=['POST'])
 def delete():
     id = request.values.get("_id")
-    users.delete_one({'_id':ObjectId(id)})
-    return redirect(url_for('login'))
+    cart.delete_many({})
+    user = db.users.find_one({"email": request.form["current_email"]})
+    # user_id = users['_id']
+    # return "hi"+str(ObjectId(user_id))
+    if(user == -1):
+        return render_template("account.html", message = "This account does not exist")
+    else:
+        db.users.remove(user)
+        return redirect(url_for('login'))
 
 @app.route("/logout.html")
 def logout():
     return redirect(url_for('login'))
-    
 
 if __name__ == '__main__':
     app.run(debug=True)
