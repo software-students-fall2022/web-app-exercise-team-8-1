@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        cartpage
+    </title>
+    <link rel="stylesheet" , href="../static/css/styles.css">
+    <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="home_menu" id="home_menu">
+            <a href="account.html">
+                <p class="account">
+                    Account
+                </p>
+            </a>
+            <a href="cart.html">
+                <p class="cart">
+                    Cart
+                </p>
+            </a>
+            <a href="list.html">
+                <p class="list">
+                    Catalogue
+                </p>
+            </a>
+            <button class="button_home"> 
+                <a href="login.html" id="changetowhite">
+                    <p class = "logout">
+                        <u>
+                            Logout 
+                        </u>
+                    </p>
+                </a> 
+            </button>
+        </div>
+        <div class="home_button hide" id="home_button">
+            <a>
+                <iconify-icon icon="charm:menu-hamburger"></iconify-icon>
+            </a>
+        </div>
+        <script>
+            var x = document.getElementById("home_button");
+            x.addEventListener("click", function() {
+                var y = document.getElementById("home_menu");
+                if (y.className === "home_menu") {
+                    y.className += " show";
+                    y.style.display = "flex";
+                } else {
+                    y.className = "home_menu";
+                    y.style.display = "none";
+                }
+            });
+        </script>
+        <h1 class="title hide">
+            CART
+        </h1>
+    </header>
+    <main>
+        <h1>
+            This cart page is not finished yet
+        </h1>
+        <h2 class="web-title">
+            Shopping Cart
+        </h2>
+        <div>
+            {%for clothing in clothes%}
+            <div>
+                <div class="product">
+                    <img src="{{clothing['image']}}" height=400px>
+                    <p> {{clothing['item-name']}} </p>
+                    <p> from {{clothing['brand']}}</p>
+                    <p> ${{clothing['price']}}</p>
+                    <form action= "cart.html" method="POST" name="cart">
+                        <input type = "hidden" id = "objID" name = "item" value ="{{clothing['_id']}}">
+                        <button type="submit"> - </button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+
+            {% block content %}
+            {% if num != 0 %} 
+            <div id="cartSummary">
+                <p> <b> Number of items:</b> {{num}}</p>
+                <p> <b>Cart total: </b>${{total}}0</p>
+            </div>
+            <form action="payment.html" method="GET">
+                <button id="checkout">
+                    <input type = "hidden" id = "total" name = "total" value ="{{total}}">
+                    <input type = "hidden" id = "num" name = "num" value ="{{num}}">
+                    Checkout
+                </button></a>
+            </form>
+            {%else%}
+            <div id = cartEmpty> 
+                <h3>  Your cart is empty! </h3>
+            </div>
+            
+            {% endif %}
+            {%endblock content%} 
+    </main>
+    <footer>
+        <div class="footer_div">
+            <p>© 2020 mainpage Shop</p>
+        </div>
+    </footer>
+</body>
+
+</html>

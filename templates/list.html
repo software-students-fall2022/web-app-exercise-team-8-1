@@ -1,0 +1,207 @@
+<html>
+
+<head>
+    <title>
+        Catalogue
+    </title>
+    <link rel="stylesheet" , href="../static/css/styles.css">
+    <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="home_menu" id="home_menu">
+            <a href="account.html">
+                <p class="account">
+                    Account
+                </p>
+            </a>
+            <a href="cart.html">
+                <p class="cart">
+                    Cart
+                </p>
+            </a>
+            <a href="list.html">
+                <p class="list">
+                    Catalogue
+                </p>
+            </a>
+            <button class="button_home">
+                <a href="login.html" id="changetowhite">
+                    <p class="logout">
+                        <u> Logout </u>
+                    </p>
+                </a>
+            </button>
+        </div>
+        <div class="home_button hide" id="home_button">
+            <a>
+                <iconify-icon icon="charm:menu-hamburger"></iconify-icon>
+            </a>
+        </div>
+        <script>
+            var x = document.getElementById("home_button");
+            x.addEventListener("click", function() {
+                var y = document.getElementById("home_menu");
+                if (y.className === "home_menu") {
+                    y.className += " show";
+                    y.style.display = "flex";
+                } else {
+                    y.className = "home_menu";
+                    y.style.display = "none";
+                }
+            });
+        </script>
+        <h1 class="title hide">
+            CATALOGUE
+        </h1>
+    </header>
+    <main>
+        <section class="filters">
+            <div class="burger">
+                <button onclick="myFunction()" class="burger_click" id="burger">
+                    <iconify-icon icon="charm:filter" class="filter_icon"></iconify-icon>
+                </button>
+                <script>
+                    function myFunction() {
+                        var x = document.getElementById("burger");
+                        if (x.className === "burger_click") {
+                            x.className += " responsive";
+                            document.getElementById("filter_list").style.display = "flex";
+                        } else {
+                            x.className = "burger_click";
+                            document.getElementById("filter_list").style.display = "none";
+                        }
+                    }
+                </script>
+            </div>
+
+            <div class="filter_list" id="filter_list">
+                <form action="/list.html" method="POST" class="form" id="filter_list_form" name="filterList">
+                    <label for="toFilter"> <h3>Filters: </h3></label>
+                    <div>
+                        <h4>Brands:</h4>
+                        <div>
+                            <input type="checkbox" id="adidas" name="Brand" value="adidas">
+                            <label for="adidas">Adidas</label><br>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="yas" name="Brand" value="YAS">
+                            <label for="YAS">YAS</label><br>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="topshop" name="Brand" value="Topshop">
+                            <label for="Topshop">Topshop</label><br>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="stylecheat" name="Brand" value="Style Cheat">
+                            <label for="Style Cheat">Style Cheat</label><br>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="collusion" name="Brand" value="COLLUSION">
+                            <label for="COLLUSION">COLLUSION</label><br>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="ellesse" name="Brand" value="Ellesse">
+                            <label for="Ellesse">Ellesse</label><br>
+                        </div>
+                        <h4>Prices:</h4>
+                        <div>
+                            <input type="checkbox" id="40" name="price" value=40>
+                            <label for=40> < $ 41 </label><br>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="50" name="price" value=50>
+                            <label for=50> < $ 51 </label><br>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="60" name="price" value=60>
+                            <label for=60> < $ 61 </label><br>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="100" name="price" value=100>
+                            <label for=100> < $ 100</label><br>
+                        </div>
+                        <h4>Sizes:</h4>
+                        <div>
+                            <input type="checkbox" id="small" name="size" value="small">
+                            <label for="small">Small (s)</label><br>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="medium" name="size" value="medium">
+                            <label for="medium">Medium (m)</label><br>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="large" name="size" value="large">
+                            <label for="large">Large (L)</label><br>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="xlarge" name="size" value="xlarge">
+                            <label for="xlarge">x-Large (xl)</label><br>
+                        </div>
+                        <input name="sub" type="submit" value="Filter" class="submit_button">
+                    </div>
+                </form>
+            </div>
+        </section>
+        <section class="search">
+            <form action="" method="POST">
+                <label for="toSort">Sort By</label>
+                <select id="sortBy" name="sortList">
+                <option value="default">  </option>
+                <option value="name">Item Name (A-Z) </option>
+                <option value="price">Price (Lowest-Highest) </option>
+                <option value="priceOpp">Price (Higest-Lowest) </option>
+                <option value="brand">Brand (A-Z) </option>
+
+                <input name = "sub" type="submit" value="Display">
+            </form> 
+        
+            <form action="" method="POST">
+                <label for="toSearch"> Search</label>
+            <input class = "input-bar" type = "text" placeholder = "Search for item" name = "toSearch">
+            <input name = "sub" type="submit" value="Search">
+            </form>
+            </section>
+            {%for clothing in clothes%}
+                <div class="product">
+                    <img src="{{clothing['image']}}" height=400px>
+                    <div class="product_div1">
+                        <!-- <div class="product_div2"> -->
+                            <p> {{clothing['item-name']}} </p>
+                        <!-- </div> -->
+                        <!-- <div class="item_details product_div2"> -->
+                            <p> from {{clothing['brand']}}</p>
+                            <p> ${{clothing['price']}}</p>
+                            <p> Available sizes: {{clothing['sizes-available']}}</p>
+                        <!-- </div> -->
+                    </div>
+                        
+
+                    <div class="buttons_item">
+                        <form action= "item.html" method="GET">
+                            <input type = "hidden" id = "objID" name = "item" value ="{{clothing['_id']}}">
+                            <button type="submit"> View item</button>
+                       </form>
+    
+                        <form action= "cart.html" method="GET">
+                             <input type = "hidden" id = "objID" name = "item" value ="{{clothing['_id']}}">
+                             <button type="submit"> Add to Cart</button>
+                        </form>
+                    </div>
+
+        
+                </div>
+            {% endfor %}
+        </section>
+    </main>
+    <footer>
+        <div class="footer_div">
+            <p>© 2020 mainpage Shop</p>
+        </div>
+    </footer>
+    <script src="../static/js/script.js"></script>
+    <script src="../static/js/list.js"></script>
+</body>
+
+</html>

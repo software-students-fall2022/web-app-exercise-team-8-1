@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Sign-up
+    </title>
+    <link rel="stylesheet" , href="../static/css/styles.css">
+    <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
+</head>
+
+
+<body>
+    <header>
+        <!-- <div class="home_menu" id="home_menu">
+            <a href="account.html">
+                <p class="account">
+                    Account
+                </p>
+            </a>
+            <a href="cart.html">
+                <p class="cart">
+                    Cart
+                </p>
+            </a>
+            <a href="list.html">
+                <p class="list">
+                    Catalogue
+                </p>
+            </a>
+            <button class="button_home">
+                <a href="login.html" id="changetowhite">
+                    <p class="logout">
+                        <u> Logout </u>
+                    </p>
+                </a>
+            </button>
+        </div>
+        <div class="home_button hide" id="home_button">
+            <a>
+                <iconify-icon icon="charm:menu-hamburger"></iconify-icon>
+            </a>
+        </div>
+        <script>
+            var x = document.getElementById("home_button");
+            x.addEventListener("click", function() {
+                var y = document.getElementById("home_menu");
+                if (y.className === "home_menu") {
+                    y.className += " show";
+                    y.style.display = "flex";
+                } else {
+                    y.className = "home_menu";
+                    y.style.display = "none";
+                }
+            });
+        </script> -->
+        <h1 class="title hide">
+            SIGN UP
+        </h1>
+    </header>
+    <main>
+        <h1>
+            This sign-up page is not finished yet
+        </h1>
+        <h2 class="web-title">
+            Sign-up
+        </h2>
+
+        <form method="POST" action="/signup.html">
+            <label for="email"><b>Email</b></label>
+            <input class="input-bar" type="text" placeholder="Email" name="email">
+
+            <label for="username"><b>Username</b></label>
+            <input class="input-bar" type="text" placeholder="Username" name="username">
+
+            <label for="password"><b>Password</b></label>
+            <input class="input-bar" type="password" placeholder="Password" name="password">
+
+            <p class="error">{{message}}</p>
+
+            <button class="login-sign-button" type="submit">
+                SIGN-UP
+            </button>
+        </form>
+    </main>
+    <footer>
+        <div class="footer_div">
+            <p>© 2020 mainpage Shop</p>
+        </div>
+    </footer>
+</body>
+
+</html>
