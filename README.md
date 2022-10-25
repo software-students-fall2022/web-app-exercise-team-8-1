@@ -26,3 +26,9 @@ As a user, I want to be able to select a size for a shirt so I can purchase a sh
 ## Task boards
 
 https://github.com/orgs/software-students-fall2022/projects/14/views/2
+
+## Team members
+- Zhang, Winston
+- Martini, Eduarda
+- Bhatta, Sanjaya
+- Nassar, Fatema
